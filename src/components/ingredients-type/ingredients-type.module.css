@@ -1,0 +1,28 @@
+.container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.list{
+    margin: 0;
+    padding: 0 0 0 16px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.ingredientItem {
+    padding: 0;
+    list-style-type: none;
+    margin-bottom: 32px;
+}
+
+.ingredientItem:last-child {
+    margin-bottom: 40px;
+}
+

@@ -1,0 +1,24 @@
+.ingredientCard {
+    max-width: 272px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    cursor: pointer;
+}
+
+.name {
+    text-align: center;
+}
+
+.price {
+    display: flex;
+    align-items: center;
+}
+
+.image {
+    max-width: 240px;
+    max-height: 120px;
+    margin-bottom: 8px;
+}

@@ -1,0 +1,19 @@
+.container {
+    max-width: 100%;
+    margin: 40px 40px 0 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.price {
+    display: flex;
+    flex-direction: row;
+    margin-right: 40px;
+}
+
+.price > svg {
+    width: 33px;
+    height: 33px;
+}
