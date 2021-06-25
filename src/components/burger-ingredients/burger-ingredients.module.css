@@ -9,10 +9,6 @@
     flex-direction: column;
     height: 60vh;
     overflow-y: scroll;
-    /* display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-column-gap: 24px;
-    grid-row-gap: 32px; */
 }
 
 

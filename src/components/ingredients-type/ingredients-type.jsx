@@ -11,10 +11,10 @@ const IngredientsType = (props) => {
             </p>
             <ul className={styles.list}>
                 {ingredients.map((item, index) => 
-                    <li className={styles.ingredientItem}>
+                    <li key={index}
+                        className={styles.ingredientItem}>
                         <Ingredient 
                             className={styles.ingredientItems}
-                            key={index}
                             ingredient={item}>
                         </Ingredient>
                     </li>

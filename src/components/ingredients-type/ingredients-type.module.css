@@ -8,12 +8,15 @@
 
 .list{
     margin: 0;
-    padding: 0 0 0 16px;
-    display: flex;
+    padding: 0 8px 0 16px;
+    /* display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-between;
-    align-items: flex-start;
+    align-items: flex-start; */
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 24px;
 }
 
 .ingredientItem {

@@ -8,7 +8,7 @@ const BurgerConstructor = (props) => {
     const { orderDetails } = props;
     const bun = orderDetails.filter(item => item.type === 'bun')[0];
     const mainIngredients = orderDetails.filter(item => item.type !== 'bun');
-    console.log(bun)
+
     return (
         <section className={styles.container}>
             <div className={styles.orders}>
@@ -24,10 +24,10 @@ const BurgerConstructor = (props) => {
                 </div>
                 <div className={styles.mainIngredientsList}>
                     {mainIngredients.map ((item,index) => 
-                        <div className={styles.elementWithDragIcon}>
+                        <div key={index} 
+                            className={styles.elementWithDragIcon}>
                             <DragIcon type="primary" />
                             <ConstructorElement
-                                key={index}
                                 text={item.name}
                                 price={item.price}
                                 thumbnail={item.image_mobile}
