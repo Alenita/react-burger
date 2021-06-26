@@ -6,6 +6,9 @@ import { ConstructorElement, DragIcon } from "@ya.praktikum/react-developer-burg
 
 const BurgerConstructor = (props) => {
     const { orderDetails } = props;
+    const ingredientPosition = (position) => {
+        return position === "top" ? "(верх)" : "(низ)"
+    }
     const bun = orderDetails.filter(item => item.type === 'bun')[0];
     const mainIngredients = orderDetails.filter(item => item.type !== 'bun');
 
@@ -17,14 +20,14 @@ const BurgerConstructor = (props) => {
                         className={styles.element}
                         type="top"
                         isLocked={true}
-                        text={bun.name}
+                        text={bun.name + ingredientPosition("top")}
                         price={bun.price}
                         thumbnail={bun.image_mobile}
                     />
                 </div>
                 <div className={styles.mainIngredientsList}>
-                    {mainIngredients.map ((item,index) => 
-                        <div key={index} 
+                    {mainIngredients.map ((item) => 
+                        <div key={item._id} 
                             className={styles.elementWithDragIcon}>
                             <DragIcon type="primary" />
                             <ConstructorElement
@@ -40,7 +43,7 @@ const BurgerConstructor = (props) => {
                         className={styles.element}
                         type="bottom"
                         isLocked={true}
-                        text={bun.name}
+                        text={bun.name + ingredientPosition("bottom")}
                         price={bun.price}
                         thumbnail={bun.image_mobile}
                     />
@@ -52,20 +55,22 @@ const BurgerConstructor = (props) => {
     )
 };
 
-BurgerConstructor.propTypes = PropTypes.arrayOf(PropTypes.shape({
-    _id: PropTypes.string,
-    name: PropTypes.string,
-    type: PropTypes.string,
-    proteins: PropTypes.number,
-    fat: PropTypes.number,
-    carbohydrates: PropTypes.number,
-    calories: PropTypes.number,
-    price: PropTypes.number,
-    image: PropTypes.string,
-    image_mobile: PropTypes.string,
-    image_large: PropTypes.string,
-    __v: PropTypes.number
-}))
+BurgerConstructor.propTypes = {
+    orderDetails: PropTypes.arrayOf(PropTypes.shape({
+        _id: PropTypes.string.isRequired,
+        name: PropTypes.string.isRequired,
+        type: PropTypes.string,
+        proteins: PropTypes.number,
+        fat: PropTypes.number,
+        carbohydrates: PropTypes.number,
+        calories: PropTypes.number,
+        price: PropTypes.number.isRequired,
+        image: PropTypes.string,
+        image_mobile: PropTypes.string.isRequired,
+        image_large: PropTypes.string,
+        __v: PropTypes.number,
+    }).isRequired)
+};
 
 
 export default BurgerConstructor;
