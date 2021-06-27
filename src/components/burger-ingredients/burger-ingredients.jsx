@@ -37,7 +37,7 @@ const BurgerIngredients = ({ingredientsDetails}) => {
                         ref={bunRef}>
                         <IngredientsType 
                             ingredients={filteredIngredients("bun")} 
-                            name={"Булки"} />
+                            typeName={"Булки"} />
                     </li>
                     <li className={styles.item}
                         ref={sauceRef}>
