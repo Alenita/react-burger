@@ -5,12 +5,12 @@ import ConstructorFooter from "../constructor-footer/constructor-footer";
 import { ConstructorElement, DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 
 const BurgerConstructor = (props) => {
-    const { orderDetails } = props;
+    const { orderedIngredients } = props;
     const ingredientPosition = (position) => {
         return position === "top" ? "(верх)" : "(низ)"
     }
-    const bun = orderDetails.filter(item => item.type === 'bun')[0];
-    const mainIngredients = orderDetails.filter(item => item.type !== 'bun');
+
+    const mainIngredients = orderedIngredients.filter(item => item.type !== 'bun');
 
     return (
         <section className={styles.container}>
@@ -20,9 +20,9 @@ const BurgerConstructor = (props) => {
                         className={styles.element}
                         type="top"
                         isLocked={true}
-                        text={bun.name + ingredientPosition("top")}
-                        price={bun.price}
-                        thumbnail={bun.image_mobile}
+                        text={`Краторная булка N-200i` + ingredientPosition("top")}
+                        price="1255"
+                        thumbnail="https://code.s3.yandex.net/react/code/bun-02-mobile.png"
                     />
                 </div>
                 <div className={styles.mainIngredientsList}>
@@ -43,20 +43,19 @@ const BurgerConstructor = (props) => {
                         className={styles.element}
                         type="bottom"
                         isLocked={true}
-                        text={bun.name + ingredientPosition("bottom")}
-                        price={bun.price}
-                        thumbnail={bun.image_mobile}
+                        text={`Краторная булка N-200i` + ingredientPosition("bottom")}
+                        price="1255"
+                        thumbnail="https://code.s3.yandex.net/react/code/bun-02-mobile.png"
                     />
                 </div>
                 <ConstructorFooter />
-            </div>
-            
+            </div> 
         </section>
     )
 };
 
 BurgerConstructor.propTypes = {
-    orderDetails: PropTypes.arrayOf(PropTypes.shape({
+    orderedIngredients: PropTypes.arrayOf(PropTypes.shape({
         _id: PropTypes.string.isRequired,
         name: PropTypes.string.isRequired,
         type: PropTypes.string,

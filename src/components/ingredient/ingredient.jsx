@@ -1,18 +1,28 @@
 import React, {useState} from "react";
 import PropTypes from "prop-types";
 import styles from "./ingredient.module.css";
-import { CurrencyIcon, Counter } from "@ya.praktikum/react-developer-burger-ui-components";
+import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
+import IngredientDetails from "../ingredient-details/ingredient-details";
 
 function Ingredient(props) {
     const { ingredient } = props; 
-    const [count, setCount] = useState(0);
+    // const [ count, setCount ] = useState(0);
+    const [ isOpenDetails, setIsOpenDetails ] = useState(false)
 
-    const countHandler = () => {
-        setCount(count+1);
+    // const countHandler = () => {
+    //     setCount(count+1);
+    // }
+
+    const onCardClickHandler = () => {
+        setIsOpenDetails(true);
+    }
+
+    const onCloseClickHandler = () => {
+        setIsOpenDetails(false);
     }
 
     return (
-            <div className={styles.ingredientCard} onClick={countHandler}>
+            <div className={styles.ingredientCard} onClick={onCardClickHandler}>
                 <img className={styles.image} src={ingredient.image} alt={ingredient.name} /> 
                 <div className={styles.price}>
                     <p className="text text_type_digits-default pr-2"> {ingredient.price} </p>
@@ -23,7 +33,8 @@ function Ingredient(props) {
                         {ingredient.name}
                     </p>
                 </div>
-                {count > 0 ? <Counter count={count} size="default" /> : ""}
+                {isOpenDetails && <IngredientDetails onClose={onCloseClickHandler} details={ingredient}/>}
+                {/* {count > 0 ? <Counter count={count} size="default" /> : ""} */}
             </div>
     )
 }
