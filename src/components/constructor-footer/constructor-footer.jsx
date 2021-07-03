@@ -1,7 +1,9 @@
 import React, { useState } from "react";
-import { Button, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import OrderDetails from "../order-details/order-details";
+
 import styles from "./constructor-footer.module.css";
+import Modal from "../modal/modal";
+import OrderDetails from "../order-details/order-details";
+import { Button, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 
 const ConstructorFooter = () => {
     const [ detailsOpen, setDetailsOpen ] = useState(false);
@@ -25,7 +27,11 @@ const ConstructorFooter = () => {
             <Button onClick = {openDetailsHandler} type="primary" size="large">
                 Оформить заказ
             </Button>
-            {detailsOpen && <OrderDetails onClose={closeDetailsHandler} />}
+            {detailsOpen && 
+                <Modal  onClose={closeDetailsHandler}>
+                    <OrderDetails/>
+                </Modal>
+            }
         </footer>
     )
 };

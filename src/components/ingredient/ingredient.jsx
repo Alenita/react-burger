@@ -1,14 +1,15 @@
 import React, {useState} from "react";
 import PropTypes from "prop-types";
+
 import styles from "./ingredient.module.css";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import IngredientDetails from "../ingredient-details/ingredient-details";
+import Modal from "../modal/modal";
 
-function Ingredient(props) {
-    const { ingredient } = props; 
-    // const [ count, setCount ] = useState(0);
+const Ingredient = ({ ingredient }) => {
     const [ isOpenDetails, setIsOpenDetails ] = useState(false)
 
+    // const [ count, setCount ] = useState(0);
     // const countHandler = () => {
     //     setCount(count+1);
     // }
@@ -28,12 +29,16 @@ function Ingredient(props) {
                     <p className="text text_type_digits-default pr-2"> {ingredient.price} </p>
                     <CurrencyIcon type="primary" />
                 </div>
-                <div className="">
+                <div>
                     <p className={`${styles.name} text text_type_main-default`}>
                         {ingredient.name}
                     </p>
                 </div>
-                {isOpenDetails && <IngredientDetails onClose={onCloseClickHandler} details={ingredient}/>}
+                {isOpenDetails && 
+                    <Modal onClose={onCloseClickHandler} 
+                        header="Детали ингредиента">
+                        <IngredientDetails details={ingredient}/>
+                    </Modal>}
                 {/* {count > 0 ? <Counter count={count} size="default" /> : ""} */}
             </div>
     )

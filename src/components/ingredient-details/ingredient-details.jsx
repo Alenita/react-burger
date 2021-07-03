@@ -1,12 +1,8 @@
 import React from "react";
-import ReactDOM from "react-dom";
 import PropTypes from "prop-types";
-import Modal from "../modal/modal";
 import styles from "./ingredient-details.module.css";
 
-const modalRoot = document.getElementById("react-modals");
-
-const IngredientDetails = ({onClose,details}) => {
+const IngredientDetails = ({ details }) => {
     const EnergyValues = () => {
         return (
             <div className={styles.values}>
@@ -43,25 +39,18 @@ const IngredientDetails = ({onClose,details}) => {
             </div>
         )
     }
-    return ReactDOM.createPortal(
-        (
-            <div id="react-modals">
-                <Modal onClose={onClose}
-                header="Детали ингредиента"
-                >
-                    <div className={styles.container}>
-                        <img className={`${styles.image} mb-4`} src={details.image_large} alt={details.name}/>
-                        <h3 className="text text_type_main-medium mb-4">{details.name}</h3>
-                        <EnergyValues />
-                    </div>
-                </Modal>
-            </div>
-        ),modalRoot
+    
+    return (
+                <div className={styles.container}>
+                    <img className={`${styles.image} mb-4`} src={details.image_large} alt={details.name}/>
+                    <h3 className="text text_type_main-medium mb-4">{details.name}</h3>
+                    <EnergyValues />
+                </div>
     )
 };
 
 IngredientDetails.propTypes = {
-    ingredient: PropTypes.arrayOf(PropTypes.shape({
+    details: PropTypes.shape({
         _id: PropTypes.string.isRequired,
         name: PropTypes.string.isRequired,
         type: PropTypes.string,
@@ -74,8 +63,7 @@ IngredientDetails.propTypes = {
         image_mobile: PropTypes.string,
         image_large: PropTypes.string.isRequired,
         __v: PropTypes.number,
-    }).isRequired),
-    onClose: PropTypes.func.isRequired
+    }).isRequired
 }
 
 export default IngredientDetails;

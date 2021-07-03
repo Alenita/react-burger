@@ -1,9 +1,11 @@
 import React, {useEffect} from "react";
+import ReactDOM from "react-dom";
 import PropTypes from "prop-types";
 import styles from "./modal.module.css";
 import ModalOverlay from "../modal-overlay/modal-overlay";
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 
+const modalRoot = document.getElementById("react-modals");
 
 const Modal =({ children, header=null, onClose })=> {
     useEffect(() => {
@@ -21,7 +23,8 @@ const Modal =({ children, header=null, onClose })=> {
         onClose();
     }
 
-    return (
+    return ReactDOM.createPortal(
+        (
         <>
             <div className={styles.modal}>
                 <div className={header ? styles.modalHeader : styles.modalHeaderRight}>
@@ -32,13 +35,14 @@ const Modal =({ children, header=null, onClose })=> {
                 </div>
                 {children}
             </div>
-        <ModalOverlay onClickClose={closeHandler} />
+            <ModalOverlay onClickClose={closeHandler} />
         </>
+        ),modalRoot
     )
 }
 
 Modal.propTypes = {
-    children: PropTypes.node.isRequired,
+    children: PropTypes.node,
     header: PropTypes.string,
     onClose: PropTypes.func.isRequired,
 }
