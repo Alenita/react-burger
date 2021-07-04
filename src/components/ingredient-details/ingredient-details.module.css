@@ -1,0 +1,28 @@
+.container {
+    width: 72%;
+    min-width: 520px;
+    margin: 0 auto 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.values {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.image {
+    max-width: 480px;
+}
+
+.valueItem {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}

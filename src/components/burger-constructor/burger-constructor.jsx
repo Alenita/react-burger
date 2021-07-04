@@ -5,10 +5,13 @@ import ConstructorFooter from "../constructor-footer/constructor-footer";
 import { ConstructorElement, DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 
 const BurgerConstructor = (props) => {
-    const { orderDetails } = props;
-    const bun = orderDetails.filter(item => item.type === 'bun')[0];
-    const mainIngredients = orderDetails.filter(item => item.type !== 'bun');
-    console.log(bun)
+    const { orderedIngredients } = props;
+    const ingredientPosition = (position) => {
+        return position === "top" ? "(верх)" : "(низ)"
+    }
+
+    const mainIngredients = orderedIngredients.filter(item => item.type !== 'bun');
+
     return (
         <section className={styles.container}>
             <div className={styles.orders}>
@@ -17,17 +20,17 @@ const BurgerConstructor = (props) => {
                         className={styles.element}
                         type="top"
                         isLocked={true}
-                        text={bun.name}
-                        price={bun.price}
-                        thumbnail={bun.image_mobile}
+                        text={`Краторная булка N-200i` + ingredientPosition("top")}
+                        price="1255"
+                        thumbnail="https://code.s3.yandex.net/react/code/bun-02-mobile.png"
                     />
                 </div>
                 <div className={styles.mainIngredientsList}>
-                    {mainIngredients.map ((item,index) => 
-                        <div className={styles.elementWithDragIcon}>
+                    {mainIngredients.map ((item) => 
+                        <div key={item._id} 
+                            className={styles.elementWithDragIcon}>
                             <DragIcon type="primary" />
                             <ConstructorElement
-                                key={index}
                                 text={item.name}
                                 price={item.price}
                                 thumbnail={item.image_mobile}
@@ -40,32 +43,33 @@ const BurgerConstructor = (props) => {
                         className={styles.element}
                         type="bottom"
                         isLocked={true}
-                        text={bun.name}
-                        price={bun.price}
-                        thumbnail={bun.image_mobile}
+                        text={`Краторная булка N-200i` + ingredientPosition("bottom")}
+                        price="1255"
+                        thumbnail="https://code.s3.yandex.net/react/code/bun-02-mobile.png"
                     />
                 </div>
                 <ConstructorFooter />
-            </div>
-            
+            </div> 
         </section>
     )
 };
 
-BurgerConstructor.propTypes = PropTypes.arrayOf(PropTypes.shape({
-    _id: PropTypes.string,
-    name: PropTypes.string,
-    type: PropTypes.string,
-    proteins: PropTypes.number,
-    fat: PropTypes.number,
-    carbohydrates: PropTypes.number,
-    calories: PropTypes.number,
-    price: PropTypes.number,
-    image: PropTypes.string,
-    image_mobile: PropTypes.string,
-    image_large: PropTypes.string,
-    __v: PropTypes.number
-}))
+BurgerConstructor.propTypes = {
+    orderedIngredients: PropTypes.arrayOf(PropTypes.shape({
+        _id: PropTypes.string.isRequired,
+        name: PropTypes.string.isRequired,
+        type: PropTypes.string,
+        proteins: PropTypes.number,
+        fat: PropTypes.number,
+        carbohydrates: PropTypes.number,
+        calories: PropTypes.number,
+        price: PropTypes.number.isRequired,
+        image: PropTypes.string,
+        image_mobile: PropTypes.string.isRequired,
+        image_large: PropTypes.string,
+        __v: PropTypes.number,
+    }).isRequired)
+};
 
 
 export default BurgerConstructor;
