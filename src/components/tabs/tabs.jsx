@@ -1,15 +1,15 @@
-import React, {useState} from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import tabsStyles from "./tabs.module.css";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 
-const Tabs = ({onTabClick}) => {
-    const [current, setCurrent] = useState("bun");
+const Tabs = ({onTabClick, current}) => {
+    // const [current, setCurrent] = useState("bun");
 
-    const handleTabChange = (data) => {
-        setCurrent(data);
-        onTabClick(data);
-    }
+    // const handleTabChange = (data) => {
+    //         setCurrent(data);
+    //         onTabClick(data);
+    // }
 
     return (
         <ul className={tabsStyles.tabs}>
@@ -17,7 +17,7 @@ const Tabs = ({onTabClick}) => {
                 <Tab 
                     value="bun" 
                     active={current === "bun"} 
-                    onClick={handleTabChange}>
+                    onClick={onTabClick}>
                     Булки
                 </Tab>
             </li>
@@ -25,7 +25,7 @@ const Tabs = ({onTabClick}) => {
                 <Tab
                     value="sauce" 
                     active={current === "sauce"} 
-                    onClick={handleTabChange}>
+                    onClick={onTabClick}>
                     Соусы
                 </Tab>
             </li>
@@ -33,7 +33,7 @@ const Tabs = ({onTabClick}) => {
                 <Tab 
                     value="stuffing" 
                     active={current === "stuffing"} 
-                    onClick={handleTabChange}>
+                    onClick={onTabClick}>
                     Начинки
                 </Tab>
             </li>

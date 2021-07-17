@@ -29,9 +29,3 @@
 	background: #8585AD;
 	border-radius: 6px;
 }
-
-.elementWithDragIcon {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-}

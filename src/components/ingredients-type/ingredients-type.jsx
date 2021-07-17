@@ -16,7 +16,8 @@ const IngredientsType = (props) => {
                         className={styles.ingredientItem}>
                         <Ingredient 
                             className={styles.ingredientItems}
-                            ingredient={item}>
+                            ingredient={item}   
+                        >
                         </Ingredient>
                     </li>
                 )}

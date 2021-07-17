@@ -2,44 +2,60 @@ import React, {useState} from "react";
 import PropTypes from "prop-types";
 
 import styles from "./ingredient.module.css";
-import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
+import { Counter, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import IngredientDetails from "../ingredient-details/ingredient-details";
 import Modal from "../modal/modal";
+// import { getIngredientDetails } from '../../services/actions/ingredients';
+
+import { useDrag } from 'react-dnd';
+import { useSelector } from "react-redux";
 
 const Ingredient = ({ ingredient }) => {
-    const [ isOpenDetails, setIsOpenDetails ] = useState(false)
+    const { name, image, price, _id, type } = ingredient;
+    const [ isOpenDetails, setIsOpenDetails ] = useState(false);
+    const { constructorIngredients, bun } = useSelector(state => state.constructorStore);
+    const [{isDragging}, dragRef] = useDrag({
+        type:'ingredient',
+        item: {type, name, image, price, _id}, 
+        collect: monitor => ({
+            isDragging: monitor.isDragging(),
+        })
+    })
+    const opacity = isDragging ? 0.4 : 1;
 
-    // const [ count, setCount ] = useState(0);
-    // const countHandler = () => {
-    //     setCount(count+1);
-    // }
+    const countIt = constructorIngredients.reduce((acc,item) => {
+        if (bun && type === 'bun' && bun._id === _id){
+            return 1
+        } else
+            return item._id === _id ? acc+1 : acc
+    }, 0);
 
     const onCardClickHandler = () => {
         setIsOpenDetails(true);
-    }
+    };
 
     const onCloseClickHandler = () => {
         setIsOpenDetails(false);
     }
 
     return (
-            <div className={styles.ingredientCard} onClick={onCardClickHandler}>
-                <img className={styles.image} src={ingredient.image} alt={ingredient.name} /> 
+            <div ref={dragRef} className={styles.ingredientCard} onClick={onCardClickHandler} style={{opacity}}>
+                <img className={styles.image} src={image} alt={name} /> 
                 <div className={styles.price}>
-                    <p className="text text_type_digits-default pr-2"> {ingredient.price} </p>
+                    <p className="text text_type_digits-default pr-2"> {price} </p>
                     <CurrencyIcon type="primary" />
                 </div>
                 <div>
                     <p className={`${styles.name} text text_type_main-default`}>
-                        {ingredient.name}
+                        {name}
                     </p>
                 </div>
                 {isOpenDetails && 
                     <Modal onClose={onCloseClickHandler} 
-                        header="Детали ингредиента">
+                            header="Детали ингредиента">
                         <IngredientDetails details={ingredient}/>
                     </Modal>}
-                {/* {count > 0 ? <Counter count={count} size="default" /> : ""} */}
+                {countIt > 0 && <Counter count={countIt} size="default" />}
             </div>
     )
 }
