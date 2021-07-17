@@ -1,4 +1,5 @@
-import React, {useRef , useCallback} from 'react';
+import React, { useRef } from 'react';
+import PropTypes from 'prop-types';
 import { useDrop, useDrag } from 'react-dnd';
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -47,9 +48,6 @@ const BurgerConstructorItem = ({ uniqueId, index, _id, price, name, image, delet
         collect: (monitor) => ({
             isDragging: monitor.isDragging(),
         }),
-        // end: (item, monitor) => {
-        //     !monitor.getDropResult() && dispatch(changeIngredientsOrder({uniqId: item.uniqueId, index: item.index }));
-        // },
     });
     
     drag(drop(ref));
@@ -66,5 +64,15 @@ const BurgerConstructorItem = ({ uniqueId, index, _id, price, name, image, delet
             </div>
     )
 }
+
+BurgerConstructorItem.propTypes = {
+        uniqueId: PropTypes.string.isRequired,
+        _id: PropTypes.string.isRequired,
+        index: PropTypes.number.isRequired,
+        name: PropTypes.string.isRequired,
+        image: PropTypes.string,
+        deleteItem: PropTypes.func.isRequired,
+    }
+
 
 export default BurgerConstructorItem;
