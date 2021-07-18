@@ -2,7 +2,8 @@ import { nanoid } from 'nanoid';
 import {
     ADD_INGREDIENT_TO_CONSTRUCTOR,
     DELETE_FROM_CONSTRUCTOR,
-    CHANGE_INGREDIENTS_ORDER
+    CHANGE_INGREDIENTS_ORDER,
+    RESET_CONSTRUCTOR
 } from '../actions/constructor-action';
 
 const initialConstructor = {
@@ -27,27 +28,24 @@ export const constructorReducer = (state=initialConstructor, action) => {
             return { ...state, constructorIngredients: [...state.constructorIngredients].filter(ingredient => ingredient.uniqueId !== action.uniqueId) };
         }
         case CHANGE_INGREDIENTS_ORDER: {
-            const prevItem = state.constructorIngredients.splice(action.hoverIndex, 1, action.dragIngredient)
-            return { ...state, 
-                constructorIngredients: {
-                    ...state.constructorIngredients.splice(action.dragIndex, 1, prevItem[0]),
-                },
+            const dragItem = state.constructorIngredients.splice(action.dragIndex, 1);
+            const newArr= [
+                            ...state.constructorIngredients.slice(0, action.hoverIndex),
+                            dragItem[0],
+                            ...state.constructorIngredients.slice(action.hoverIndex, state.constructorIngredients.length)
+                        ]
+            return ({
+                ...state,
+                constructorIngredients: newArr
+            })
+        }
+        case RESET_CONSTRUCTOR: {
+            return {
+                ...state,
+                constructorIngredients: initialConstructor.constructorIngredients,
+                bun: initialConstructor.bun,
             }
         }
-            // const prevIndex = state.constructorIngredients.findIndex(item => item.uniqId === action.uniqId);
-            // if ((Math.min(prevIndex, action.index) < 0) || (Math.max(prevIndex, action.index) >= state.constructorIngredients.length)) {
-            //     return state;
-            // }
-            // const item = state.constructorIngredients.splice(prevIndex, 1);
-            // const updatedOrder = [
-            //     ...state.constructorIngredients.slice(0, action.index),
-            //     item[0],
-            //     ...state.constructorIngredients.slice(action.index, state.constructorIngredients.length)
-            // ]
-            // return ({
-            //     ...state,
-            //     constructorReducer: updatedOrder
-            // })
         default: { 
             return state;
         }

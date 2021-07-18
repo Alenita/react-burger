@@ -1,7 +1,8 @@
-import React from "react";
+import React from 'react';
+import PropTypes from 'prop-types';
 
-import styles from "./order-details.module.css";
-import done from "../../images/done.png";
+import styles from './order-details.module.css';
+import done from '../../images/done.png';
 
 
 const OrderDetails = ({orderId}) => {
@@ -19,6 +20,10 @@ const OrderDetails = ({orderId}) => {
             {orderId ? succeedOrder : <p>Загрузка...</p>}
         </div>
     );
+}
+
+OrderDetails.propTypes = {
+    orderId: PropTypes.number,
 }
 
 export default OrderDetails;

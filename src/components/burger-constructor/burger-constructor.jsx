@@ -14,11 +14,10 @@ const BurgerConstructor = () => {
     const { constructorIngredients, bun } = useSelector(state => state.constructorStore);
 
     const [, dropTarget] = useDrop({
-        accept: ['ingredient', 'constructor-ingredient'],
+        accept: 'ingredient',
         drop(item) {
-            if (item.type !== 'constructor-ingredient') {
                 dispatch(addIngredientToConstructor(item.type, item.name, item.image, item.price, item._id))
-            }},
+            },
     });
 
     const ingredientPosition = (position) => {

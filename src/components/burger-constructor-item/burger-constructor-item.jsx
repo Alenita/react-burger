@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
 import { useDrop, useDrag } from 'react-dnd';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 import { ConstructorElement, DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { changeIngredientsOrder } from '../../services/actions/constructor-action';
@@ -9,11 +9,9 @@ import styles from './burger-constructor-item.module.css';
 
 const BurgerConstructorItem = ({ uniqueId, index, _id, price, name, image, deleteItem }) => {
     const ref = useRef(null);
-    const { constructorIngredients } = useSelector(state => state.constructorStore)
     const dispatch = useDispatch(); 
     const moveIngredient = (dragIndex, hoverIndex) => {
-        const dragIngredient = constructorIngredients[dragIndex];
-        dispatch(changeIngredientsOrder(dragIngredient, dragIndex, hoverIndex))
+        dispatch(changeIngredientsOrder( dragIndex, hoverIndex))
     };
 
     const [, drop] = useDrop({
@@ -66,13 +64,12 @@ const BurgerConstructorItem = ({ uniqueId, index, _id, price, name, image, delet
 }
 
 BurgerConstructorItem.propTypes = {
-        uniqueId: PropTypes.string.isRequired,
-        _id: PropTypes.string.isRequired,
-        index: PropTypes.number.isRequired,
-        name: PropTypes.string.isRequired,
-        image: PropTypes.string,
-        deleteItem: PropTypes.func.isRequired,
+    uniqueId: PropTypes.string.isRequired,
+    _id: PropTypes.string.isRequired,
+    index: PropTypes.number.isRequired,
+    name: PropTypes.string.isRequired,
+    image: PropTypes.string,
+    deleteItem: PropTypes.func.isRequired,
     }
-
 
 export default BurgerConstructorItem;

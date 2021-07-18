@@ -4,12 +4,6 @@ import tabsStyles from "./tabs.module.css";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 
 const Tabs = ({onTabClick, current}) => {
-    // const [current, setCurrent] = useState("bun");
-
-    // const handleTabChange = (data) => {
-    //         setCurrent(data);
-    //         onTabClick(data);
-    // }
 
     return (
         <ul className={tabsStyles.tabs}>
@@ -43,6 +37,7 @@ const Tabs = ({onTabClick, current}) => {
 
 Tabs.propTypes = {
     onTabClick: PropTypes.func.isRequired,
+    current: PropTypes.string.isRequired,
 }
 
 export default Tabs;

@@ -14,6 +14,7 @@ const Ingredient = ({ ingredient }) => {
     const { name, image, price, _id, type } = ingredient;
     const [ isOpenDetails, setIsOpenDetails ] = useState(false);
     const { constructorIngredients, bun } = useSelector(state => state.constructorStore);
+    
     const [{isDragging}, dragRef] = useDrag({
         type:'ingredient',
         item: {type, name, image, price, _id}, 
@@ -21,11 +22,10 @@ const Ingredient = ({ ingredient }) => {
             isDragging: monitor.isDragging(),
         })
     })
-    const opacity = isDragging ? 0.4 : 1;
-
+    const opacity = isDragging ? 0.5 : 1;
     const countIt = constructorIngredients.reduce((acc,item) => {
         if (bun && type === 'bun' && bun._id === _id){
-            return 1
+            return 2;
         } else
             return item._id === _id ? acc+1 : acc
     }, 0);

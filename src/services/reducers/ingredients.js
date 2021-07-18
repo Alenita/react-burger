@@ -26,30 +26,8 @@ export const ingredientsReducer = (state = initialState, action) => {
         case GET_INGREDIENTS_ERROR: {
             return { ...state, ingredientsError: true, ingredientsRequest: false };
         }      
-        // case GET_INGREDIENT_DETAILS: {
-        //     return { ...state, ingredientDetails: action.payload.details};
-        // }
-        // case CLOSE_INGREDIENT_DETAILS: {
-        //     return { ...state, closeIngredientDetails: true, ingredientDetails: {}};
-        // }
-        // case INCREASE_INGREDIENT_COUNT: {
-        //     return {
-        //         ...state,
-        //         ingredients: [...state.ingredients].map(ingredient =>
-        //             ingredient.id === action.id ? ingredient.count = ingredient.count+1 : ingredient
-        //         )
-        //     };
-        // }
-        // case DECREASE_INGREDIENT_COUNT: {
-        //     return {
-        //         ...state,
-        //         ingredients: [...state.ingredients].map(ingredient =>
-        //             ingredient.id === action.id ? ingredient.count = ingredient.count-1 : ingredient
-        //         )
-        //     };
-        // }
         default: {
-            return { ...state };
+            return state;
         }
     }
 }
