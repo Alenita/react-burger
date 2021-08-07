@@ -17,6 +17,7 @@ export const orderReducer = ( state=initialState, action ) => {
             return {
                 ...state,
                 orderNumberRequest: true,
+                orderId: null,
             };
         }
         case GET_ORDER_NUMBER_SUCCESS: {

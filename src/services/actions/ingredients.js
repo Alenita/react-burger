@@ -4,11 +4,7 @@ export const GET_INGREDIENTS_REQUEST = 'GET_INGREDIENTS_REQUEST';
 export const GET_INGREDIENTS_SUCCESS = 'GET_INGREDIENTS_SUCCESS';
 export const GET_INGREDIENTS_ERROR = 'GET_INGREDIENTS_ERROR';
 
-// export const GET_INGREDIENT_DETAILS = 'GET_INGREDIENT_DETAILS';
-// export const CLOSE_INGREDIENT_DETAILS = 'CLOSE_INGREDIENT_DETAILS'; 
-
-// export const INCREASE_INGREDIENT_COUNT = 'INCREASE_INGREDIENT_COUNT';
-// export const DECREASE_INGREDIENT_COUNT = 'DECREASE_INGREDIENT_COUNT';
+export const SET_INGREDIENT_DETAILS = 'SET_INGREDIENT_DETAILS';
 
 export const getIngredients = () => dispatch => {
     dispatch({
@@ -32,9 +28,10 @@ export const getIngredients = () => dispatch => {
         }))
 };
 
-// export const getIngredientDetails = (details) => dispatch => {
-//     dispatch({
-//         type: GET_INGREDIENT_DETAILS,
-//         payload: {details}
-//     })
-// };
+export const setIngredientDetails = (ingredient) => dispatch => {
+    dispatch({
+        type: SET_INGREDIENT_DETAILS,
+        ingredient
+    })
+};
+

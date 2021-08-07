@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
 import styles from './constructor-footer.module.css';
 import Modal from '../modal/modal';
@@ -9,9 +10,12 @@ import { getOrderNumber } from '../../services/actions/order';
 import { resetConstructor } from '../../services/actions/constructor-action';
 
 const ConstructorFooter = () => {
-    const { constructorIngredients, bun } = useSelector(state => state.constructorStore);
-    const { orderId } = useSelector(state => state.order);
+    const history = useHistory();
     const dispatch = useDispatch();
+
+    const { constructorIngredients, bun } = useSelector(state => state.constructorStore);
+    const { isUserLoggedIn } = useSelector(state => state.userData);
+    const { orderId } = useSelector(state => state.order);
     const [ detailsOpen, setDetailsOpen ] = useState(false);
 
     const mainIngredientsCost = constructorIngredients?.reduce((acc, item) => {return acc + item.price}, 0);
@@ -25,9 +29,13 @@ const ConstructorFooter = () => {
         if (!bun) {
             return;
         }
-        dispatch(getOrderNumber(constructorIngredients.map(item=> item._id)));
-        setDetailsOpen(true);
-        dispatch(resetConstructor());
+        if (!isUserLoggedIn) {
+            history.replace('/login');
+        } else {
+            dispatch(getOrderNumber(constructorIngredients.map(item=> item._id)));
+            setDetailsOpen(true);
+            dispatch(resetConstructor());
+        }
     };
 
     return (
@@ -42,7 +50,7 @@ const ConstructorFooter = () => {
                 Оформить заказ
             </Button>
             {detailsOpen && 
-                <Modal  onClose={closeDetailsHandler}>
+                <Modal  closeHandler={closeDetailsHandler}>
                     <OrderDetails orderId={orderId}/>
                 </Modal>
             }

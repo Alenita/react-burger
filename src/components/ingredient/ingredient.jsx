@@ -1,18 +1,21 @@
-import React, {useState} from "react";
+import React from "react";
 import PropTypes from "prop-types";
+import { Link, useLocation } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
 import styles from "./ingredient.module.css";
 import { Counter, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import IngredientDetails from "../ingredient-details/ingredient-details";
-import Modal from "../modal/modal";
+import { setIngredientDetails } from "../../services/actions/ingredients";
 // import { getIngredientDetails } from '../../services/actions/ingredients';
 
 import { useDrag } from 'react-dnd';
 import { useSelector } from "react-redux";
 
 const Ingredient = ({ ingredient }) => {
+    const location = useLocation();
+    const dispatch = useDispatch();
+
     const { name, image, price, _id, type } = ingredient;
-    const [ isOpenDetails, setIsOpenDetails ] = useState(false);
     const { constructorIngredients, bun } = useSelector(state => state.constructorStore);
     
     const [{isDragging}, dragRef] = useDrag({
@@ -31,31 +34,39 @@ const Ingredient = ({ ingredient }) => {
     }, 0);
 
     const onCardClickHandler = () => {
-        setIsOpenDetails(true);
+        dispatch(setIngredientDetails(ingredient))
+        console.log('loc' + location.state)
     };
 
-    const onCloseClickHandler = () => {
-        setIsOpenDetails(false);
-    }
+    // const onCloseClickHandler = () => {
+    //     setIsOpenDetails(false);
+    // }
 
     return (
             <div ref={dragRef} className={styles.ingredientCard} onClick={onCardClickHandler} style={{opacity}}>
-                <img className={styles.image} src={image} alt={name} /> 
-                <div className={styles.price}>
-                    <p className="text text_type_digits-default pr-2"> {price} </p>
-                    <CurrencyIcon type="primary" />
-                </div>
-                <div>
-                    <p className={`${styles.name} text text_type_main-default`}>
-                        {name}
-                    </p>
-                </div>
-                {isOpenDetails && 
-                    <Modal onClose={onCloseClickHandler} 
-                            header="Детали ингредиента">
-                        <IngredientDetails details={ingredient}/>
-                    </Modal>}
-                {countIt > 0 && <Counter count={countIt} size="default" />}
+                <Link   className={styles.link} 
+                        to={{ 
+                            pathname: `/ingredients/${_id}`, 
+                            state: {background: location} 
+                        }}
+                >
+                    <img className={styles.image} src={image} alt={name} /> 
+                    <div className={styles.price}>
+                        <p className="text text_type_digits-default pr-2"> {price} </p>
+                        <CurrencyIcon type="primary" />
+                    </div>
+                    <div>
+                        <p className={`${styles.name} text text_type_main-default`}>
+                            {name}
+                        </p>
+                    </div>
+                    {/* {isOpenDetails && 
+                        <Modal onClose={onCloseClickHandler} 
+                                header="Детали ингредиента">
+                            <IngredientDetails details={ingredient}/>
+                        </Modal>} */}
+                    {countIt > 0 && <Counter count={countIt} size="default" />}
+                </Link>
             </div>
     )
 }

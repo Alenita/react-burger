@@ -5,6 +5,7 @@
     position: sticky;
     position: -webkit-sticky;
     top: -1px;
+    z-index: 99;
 }
 
 .nav {
@@ -40,4 +41,11 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+}
+
+.link {
+    text-decoration: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }

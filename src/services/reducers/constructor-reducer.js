@@ -13,7 +13,6 @@ const initialConstructor = {
 
 export const constructorReducer = (state=initialConstructor, action) => {
     const {ingredientType, name, image, price, _id} = action;
-    console.log(state.constructorIngredients)
     switch (action.type) {
         case ADD_INGREDIENT_TO_CONSTRUCTOR: 
             if (action.ingredientType === 'bun') {
@@ -23,10 +22,12 @@ export const constructorReducer = (state=initialConstructor, action) => {
                 }
             } else {
                 return {...state, constructorIngredients: [...state.constructorIngredients, {ingredientType, name, image, price, _id, uniqueId: nanoid()}]}
-            }
+        }
+
         case DELETE_FROM_CONSTRUCTOR: {
             return { ...state, constructorIngredients: [...state.constructorIngredients].filter(ingredient => ingredient.uniqueId !== action.uniqueId) };
         }
+
         case CHANGE_INGREDIENTS_ORDER: {
             const dragItem = state.constructorIngredients.splice(action.dragIndex, 1);
             const newArr= [
@@ -39,6 +40,7 @@ export const constructorReducer = (state=initialConstructor, action) => {
                 constructorIngredients: newArr
             })
         }
+
         case RESET_CONSTRUCTOR: {
             return {
                 ...state,
@@ -46,6 +48,7 @@ export const constructorReducer = (state=initialConstructor, action) => {
                 bun: initialConstructor.bun,
             }
         }
+
         default: { 
             return state;
         }
