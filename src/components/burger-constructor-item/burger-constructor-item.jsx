@@ -40,7 +40,7 @@ const BurgerConstructorItem = ({ uniqueId, index, _id, price, name, image, delet
         },
     });
 
-    const [, drag] = useDrag({
+    const [isDragging, drag] = useDrag({
         type: 'constructor-ingredient',
         item: { type: 'constructor-ingredient', name, index, image, price, _id, uniqueId },
         collect: (monitor) => ({
@@ -48,12 +48,14 @@ const BurgerConstructorItem = ({ uniqueId, index, _id, price, name, image, delet
         }),
     });
     
+    const opacity = isDragging ? 0 : 1;
     drag(drop(ref));
 
     return (
             <div ref={ref} className={styles.elementWithDragIcon}>
                 <DragIcon type="primary" />
                 <ConstructorElement
+                    style={{opacity}}
                     text={name}
                     price={price}
                     thumbnail={image}

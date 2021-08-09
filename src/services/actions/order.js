@@ -22,8 +22,6 @@ export const getOrderNumber = (orderedList) => dispatch => {
                 dispatch({type: GET_ORDER_NUMBER_ERROR});
                 throw Error('Could not fetch the data');
             }
-            
-    console.log(res)
             return res.json()
         })
         .then((res) => dispatch({
