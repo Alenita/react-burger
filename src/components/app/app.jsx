@@ -30,6 +30,7 @@ const App =() => {
   useEffect(() => {
     if(!isUserLoggedIn && token ){
       dispatch(getUserInfo())
+      console.log(token)
     }
   },[isUserLoggedIn, token, dispatch])
 

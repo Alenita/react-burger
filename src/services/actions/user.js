@@ -182,27 +182,24 @@ export const getUserInfo = () => dispatch => {
             'Authorization': 'Bearer ' + getCookie('accessToken')
         },
     })
+    .then(res => res.json())
     .then(res => {
-        if (res.message === 'jwt expired') {
-            dispatch(getUserRefreshToken())
-        }
-        if (!res.ok) {
-            throw new Error(res.status);
-        } else {
-            return res.json();
-        }
-    })
-    .then(res => {
+        if (!res.success) {
+            throw res;
+        } 
         dispatch({
             type: GET_USER_INFO_SUCCESS, 
             payload: res,
         });
     })
-    .catch(error => {
+    .catch(res => {
+        if (res.message === 'jwt expired') {
+                dispatch(getUserRefreshToken())
+        }
         dispatch({
             type: GET_USER_INFO_ERROR, 
         })
-        console.log('Error get user info: '+ error)
+        console.log('Error get user info: '+ res.message)
     });
 };
 
