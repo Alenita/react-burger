@@ -14,9 +14,7 @@ import { ResetPasswordPage } from "../../pages/reset-password";
 import { ProtectedRoute } from '../protected-route/protected-route';
 import { getUserInfo } from '../../services/actions/user';
 import { FeedPage } from '../../pages/feed';
-import { OrdersHistoryPage } from '../../pages/orders-history';
 import { NotFound404 } from '../../pages/404page';
-import { deleteIngredientDetails } from '../../services/actions/ingredients';
 import { IngredientPage } from '../../pages/ingredient-page';
 import IngredientDetails from '../ingredient-details/ingredient-details';
 
@@ -24,12 +22,16 @@ const App =() => {
   const dispatch = useDispatch();
   const history = useHistory();
   const location = useLocation();
-  console.log(location)
+  const { isUserLoggedIn } = useSelector(state => state.userData);
+  
   const background = history.action === 'PUSH' && location.state && location.state.background;
-console.log(background)
+  const token = localStorage.getItem('refreshToken')
+        
   useEffect(() => {
-    dispatch(getUserInfo());
-  },[dispatch]);
+    if(!isUserLoggedIn && token ){
+      dispatch(getUserInfo())
+    }
+  },[isUserLoggedIn, token, dispatch])
 
   const closeModalHandler = (e) => {
     e.preventDefault();
@@ -40,29 +42,29 @@ console.log(background)
     <>
       <Header />
         <Switch location={background || location}>
-          <Route path="/" exact={true}>
+          <Route path='/' exact={true}>
             <MainPage />
           </Route>
-          <Route path="/login">
+          <Route path='/login'>
             <LoginPage />
           </Route>
-          <Route path="/register" exact={true}>
+          <Route path='/register' exact={true}>
             <RegistrationPage />
           </Route>
-          <Route path={'/forgot-password'} exact={true}>
+          <Route path='/forgot-password' exact={true}>
             <ForgotPasswordPage />
           </Route>
-          <Route path={'/reset-password'} exact={true}>
+          <Route path='/reset-password' exact={true}>
             <ResetPasswordPage />
           </Route>
-          <ProtectedRoute path={'/profile'}>
+          {/* <ProtectedRoute path='/profile/orders' exact={true}>
+            <OrdersHistoryPage />
+          </ProtectedRoute> */}
+          <ProtectedRoute path='/profile'>
             <ProfilePage />
           </ProtectedRoute>
-          <Route path={'/feed'} exact={true}>
+          <Route path='/feed' exact={true}>
             <FeedPage />
-          </Route>
-          <Route path={'/profile/orders'} exact={true}>
-            <OrdersHistoryPage />
           </Route>
           <Route path='/ingredients/:id'>
             <IngredientPage />

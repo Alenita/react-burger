@@ -12,7 +12,7 @@ export const RegistrationPage = () => {
     const dispatch = useDispatch();
     const { state } = useLocation();
 
-    const { user, accessToken, isUserLoggedIn } = useSelector(state => state.userData)
+    const { isUserLoggedIn } = useSelector(state => state.userData)
     const [value, setValue] = useState({ name: '', email: '', password: '' });
     
     const onChange = e => {
@@ -20,16 +20,14 @@ export const RegistrationPage = () => {
     };
 
     const registerNewUser = (e) => {
-        const {email, password, name} = value;
         e.preventDefault();
+        const {email, password, name} = value;
+        if (!email || !password || !name) {
+            alert('Введите свои данные')
+        }
         dispatch(getUserRegister(email, password, name))
-            // .then(({success, errorMessage}) => {
-            //     success ? history.replace({pathname: '/login'}) : alert('При регистрациии произошла ошибка' + errorMessage);
-            // })
-            if(user && accessToken) {
-                history.replace({pathname: '/login'})
-            }
-        };
+        history.replace({pathname: '/login'})
+    };
 
     if (isUserLoggedIn) {
         return <Redirect to={state?.from || '/'} />
@@ -39,8 +37,9 @@ export const RegistrationPage = () => {
         <>
             <div className={styles.wrapper}>
                 <h2 className={`${styles.title} text text_type_main-medium`}>Регистрация</h2>
-                <form   onSubmit={registerNewUser}
-                        className={styles.form}>
+                <form  onSubmit={registerNewUser}
+                    className={styles.form}
+                >
                     <Input 
                         type='text'
                         placeholder='Имя'

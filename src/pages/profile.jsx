@@ -1,15 +1,13 @@
 import React, { useState } from 'react';
-import { NavLink, useLocation } from 'react-router-dom';
+import { NavLink, Switch, Route } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import styles from './profile.module.css';
 
 import { getUserLogout, getUserInfoUpdate } from '../services/actions/user';
 import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-components'
-
+import { OrdersHistoryPage } from './orders-history';
 
 export const ProfilePage = () => {
-    let location = useLocation();
-    console.log('pro loc ' +location)
     const { user } = useSelector(state => state.userData)
     const dispatch = useDispatch();
 
@@ -19,26 +17,27 @@ export const ProfilePage = () => {
     const [ disabledInput, setInputDisabled ] = useState(true);
     const [ showButtons, setShowButtons ] = useState(false);
 
-    const   onIconClick = () => {
-            setInputDisabled(false);
+    const onIconClick = () => {
+        setInputDisabled(false);
     };
 
-    const   logoutUser = () => {
-            dispatch(getUserLogout());
+    const logoutUser = () => {
+        dispatch(getUserLogout());
     };
 
-    const   editDataHandler = () => {
-            dispatch(getUserInfoUpdate(userEmail, userPassword, userName));
-            setShowButtons(false);
-            setInputDisabled(true);
+    const editDataHandler = (e) => {
+        e.preventDefault();
+        dispatch(getUserInfoUpdate(userEmail, userPassword, userName));
+        setShowButtons(false);
+        setInputDisabled(true);
     };
 
-    const   rejectEditDataHandler = () => {
-            setUserName(user.name);
-            setUserEmail(user.email);
-            setUserPassword('');
-            setShowButtons(false);
-            setInputDisabled(true);
+    const rejectEditDataHandler = () => {
+        setUserName(user.name);
+        setUserEmail(user.email);
+        setUserPassword('');
+        setShowButtons(false);
+        setInputDisabled(true);
     };
 
     return(
@@ -53,7 +52,7 @@ export const ProfilePage = () => {
                                     className={`${styles.link} text text_type_main-medium pb-4 pt-4 text_color_inactive`}>
                                         Профиль
                             </NavLink>
-                            <NavLink to='/profile/orders/' exact={true}
+                            <NavLink to='/profile/orders' exact={true}
                                     activeStyle={{
                                         color: "#F2F2F3"
                                     }}
@@ -64,10 +63,17 @@ export const ProfilePage = () => {
                                     className={`${styles.link} text text_type_main-medium pb-4 pt-4 text_color_inactive`}>
                                         Выход
                             </NavLink>
+                            <div className={styles.text}>
+                                <p className='mt-20 text text_type_main-default text_color_inactive'>
+                                    В этом разделе вы можете изменить свои персональные данные
+                                </p>
+                            </div>
                         </div>
+                        <Switch>
+                        <Route path='/profile' exact={true}>
                         <div className={styles.right}>
-                            <form 
-                                    className={styles.form}
+                            <form onSubmit={editDataHandler}
+                                className={styles.form}
                             >
                                 <Input 
                                     disabled={disabledInput ? true : false}
@@ -122,28 +128,25 @@ export const ProfilePage = () => {
                                         size={'default'}
                                     />
                                 </div>
+                                { showButtons && 
+                                    <div className={styles.buttons}>
+                                        <span onClick={rejectEditDataHandler}
+                                            className={`${styles.reject} text text_type_main-default mr-6`}>
+                                                Отмена
+                                        </span>
+                                        <Button  type="primary" size="medium">
+                                            Сохранить
+                                        </Button>
+                                    </div>
+                                }
                             </form>
                         </div>
-                        
-                    </div>
-                    <div className={styles.footer}>
-                            <div className={styles.text}>
-                                <p className='text text_type_main-default text_color_inactive'>
-                                    В этом разделе вы можете изменить свои персональные данные
-                                </p>
-                            </div>
-                            { showButtons && 
-                                <div className={styles.buttons}>
-                                    <span   onClick={rejectEditDataHandler}
-                                            className={`${styles.reject} text text_type_main-default`}>
-                                                Отмена
-                                    </span>
-                                    <Button onClick={editDataHandler} type="primary" size="medium">
-                                        Сохранить
-                                    </Button>
-                                </div>
-                            }
-                    </div>
+                        </Route>
+                        <Route path='/profile/orders' exact={true}>
+                            <OrdersHistoryPage />
+                        </Route>
+                    </Switch>
+                </div>
             </main>
         </>
     )

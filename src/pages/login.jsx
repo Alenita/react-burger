@@ -1,17 +1,16 @@
 import React, { useState } from 'react';
 import styles from './registration.module.css';
-import { Link, useHistory, Redirect, useLocation } from 'react-router-dom';
+import { Link, Redirect, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { Button, PasswordInput, Input } from '@ya.praktikum/react-developer-burger-ui-components'
 import { getUserLogin } from '../services/actions/user';
 
 export const LoginPage = () => {
-    const history = useHistory();
     const dispatch = useDispatch();
     const { state } = useLocation()
 
-    const { accessToken, refreshToken, isUserLoggedIn } = useSelector(state => state.userData);
+    const { isUserLoggedIn } = useSelector(state => state.userData);
     const [value, setValue] = useState({ email: '', password: '' });
 
     const onChange = e => {
@@ -19,12 +18,9 @@ export const LoginPage = () => {
     };
 
     const submitHandler = (e) => {
-        const {email, password} = value;
         e.preventDefault();
+        const {email, password} = value;
         dispatch(getUserLogin(email, password));
-        if (accessToken && refreshToken) {
-            history.replace('/')
-        }
     };
 
     if (isUserLoggedIn) {
@@ -35,8 +31,9 @@ export const LoginPage = () => {
         <>
             <div className={styles.wrapper}>
                 <h2 className={`${styles.title} text text_type_main-medium`}>Вход</h2>
-                <form   onSubmit={submitHandler}
-                        className={styles.form}>
+                <form onSubmit={submitHandler}
+                    className={styles.form}
+                >
                     <Input 
                         type='text'
                         placeholder='E-mail'

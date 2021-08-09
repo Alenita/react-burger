@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, Redirect, useLocation, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -10,18 +10,20 @@ export const ForgotPasswordPage = () => {
     const dispatch = useDispatch();
     const history = useHistory();
     const { state } = useLocation();
-    const { isUserLoggedIn } = useSelector(state => state.userData)
+    const { isUserLoggedIn, getUserEmail } = useSelector(state => state.userData)
 
     const [email, setEmail] = useState('');
     
-    const sendEmailHandler = () => {
-        if(!email) {
-            alert('Введите вашу почту')
-        } else {
-            dispatch(getUserForgotPassword(email));
+    const sendEmailHandler = (e) => {
+        e.preventDefault();
+        dispatch(getUserForgotPassword(email));    
+    }
+
+    useEffect(() => {
+        if (getUserEmail) {
             history.replace('/reset-password');
         }
-    }
+    }, [getUserEmail, history]);
     
     if (isUserLoggedIn) {
         return <Redirect to={state?.from || '/'} />
@@ -31,7 +33,7 @@ export const ForgotPasswordPage = () => {
         <>
             <div className={styles.wrapper}>
                 <h2 className={`${styles.title} text text_type_main-medium`}>Восстановление пароля</h2>
-                <div className={styles.form}>
+                <form className={styles.form} onSubmit={sendEmailHandler}>
                     <div className={`${styles.container} mt-6`}>
                         <Input 
                             type='text'
@@ -46,14 +48,14 @@ export const ForgotPasswordPage = () => {
                         />
                     </div>
                     <div className="mt-6 mb-20">
-                        <Button onClick={sendEmailHandler}
-                                type="primary" 
-                                size="medium"
+                        <Button 
+                            type="primary" 
+                            size="medium"
                         >
                             Восстановить
                         </Button>
                     </div>
-                </div>
+                </form>
                 <div className={styles.line}>
                     <p className='text text_type_main-default text_color_inactive'>Вспомнили пароль?&nbsp;</p>
                     <Link className={`${styles.link} text text_type_main-default`} to='/login'>Войти</Link>

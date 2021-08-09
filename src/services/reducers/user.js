@@ -8,7 +8,7 @@ import {
         GET_USER_LOGIN_ERROR,
 
         GET_USER_RESET_PASSWORD_REQUEST,
-        // GET_USER_RESET_PASSWORD_SUCCESS,
+        GET_USER_RESET_PASSWORD_SUCCESS,
         // GET_USER_RESET_PASSWORD_ERROR,
 
         GET_USER_FORGOT_PASSWORD_REQUEST,
@@ -30,13 +30,12 @@ import {
     } from '../actions/user.js';
 
 const initialState = {
-    accessToken: null,
-    refreshToken: null,
     user: null,
     userDataRequest: false,
     userDataError: false,
     isUserLoggedIn: false,
     getUserEmail: false,
+    isResetPassword: false
 }
 
 export const userReducer = ( state=initialState, action ) => {
@@ -59,8 +58,6 @@ export const userReducer = ( state=initialState, action ) => {
                 ...state, 
                 userDataRequest: false, 
                 userDataError: false,
-                accessToken: action.payload.accessToken,
-                refreshToken: action.payload.refreshToken,
                 user: action.payload.user,
                 isUserLoggedIn: true
             };
@@ -71,9 +68,8 @@ export const userReducer = ( state=initialState, action ) => {
                 ...state, 
                 userDataRequest: false, 
                 userDataError: false,
-                accessToken: action.payload.accessToken,
-                refreshToken: action.payload.refreshToken,
                 user: action.payload.user,
+                // isUserLoggedIn: true
             }
         }
 
@@ -87,8 +83,16 @@ export const userReducer = ( state=initialState, action ) => {
             return {
                 ...state,
                 userDataRequest: false,
-                userDataError: false,
                 getUserEmail: true,
+                isUserLoggedIn: false 
+            }
+        }
+
+        case GET_USER_RESET_PASSWORD_SUCCESS: {
+            return {
+                ...state,
+                userDataRequest: false,
+                isResetPassword: true,
                 isUserLoggedIn: false 
             }
         }
@@ -114,8 +118,6 @@ export const userReducer = ( state=initialState, action ) => {
             return {
                 ...state,
                 userDataRequest: false,
-                accessToken: action.payload.accessToken,
-                refreshToken: action.payload.refreshToken,
                 user: action.payload.user,
                 isUserLoggedIn: true,
             }
@@ -124,8 +126,6 @@ export const userReducer = ( state=initialState, action ) => {
         case GET_USER_REFRESH_TOKEN_SUCCESS: {
             return {
                 ...state,
-                accessToken: action.payload.accessToken,
-                refreshToken: action.payload.refreshToken,
                 user: action.payload.user
             }
         } 

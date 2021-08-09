@@ -98,8 +98,7 @@ export const getUserLogin = (email,password) => dispatch => {
                 payload: res,
             })
         if (res.refreshToken) {
-            setCookie('token', res.accessToken.split('Bearer ')[1]);
-            console.log('refresh: '+ res.accessToken);
+            setCookie('accessToken', res.accessToken.split('Bearer ')[1]);;
             localStorage.setItem('refreshToken', res.refreshToken);
         }})
         .catch((error) => {
@@ -180,11 +179,11 @@ export const getUserInfo = () => dispatch => {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + getCookie('token')
+            'Authorization': 'Bearer ' + getCookie('accessToken')
         },
     })
     .then(res => {
-        if (res.status === 403) {
+        if (res.message === 'jwt expired') {
             dispatch(getUserRefreshToken())
         }
         if (!res.ok) {
@@ -233,7 +232,7 @@ export const getUserRefreshToken = (afterRefreshFunc) => dispatch => {
             payload: res,
         })
         localStorage.setItem('refreshToken', res.refreshToken);
-        setCookie('token', res.accessToken.split('Bearer ')[1]);
+        setCookie('accessToken', res.accessToken.split('Bearer ')[1]);
         dispatch(afterRefreshFunc)
     })
     .catch(error => {
@@ -252,7 +251,7 @@ export const getUserInfoUpdate = (email, password, name) => dispatch => {
         method: 'PATCH',
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + getCookie('token'),
+            'Authorization': 'Bearer ' + getCookie('accessToken'),
         },
         body: JSON.stringify({ email, password, name})
     })
@@ -303,7 +302,7 @@ export const getUserLogout = () => dispatch => {
             payload: res,
         });
         localStorage.setItem('refreshToken', '');
-        deleteCookie('token');
+        deleteCookie('accessToken');
     })
     .catch(error => {
         dispatch({

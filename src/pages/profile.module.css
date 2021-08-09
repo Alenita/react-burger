@@ -42,14 +42,15 @@
 
 .text {
     max-width: 320px;
-    width: 40%;
+    width: 100%;
 }
 
 .buttons {
-    width: 30%;
+    width: 100%;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     align-items: center;
+    margin-top: 24px;
 }
 
 .reject {

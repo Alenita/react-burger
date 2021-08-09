@@ -11,14 +11,14 @@ export function setCookie(name, value, props) {
     let exp = props.expires;
     if (typeof exp == 'number' && exp) {
         const d = new Date();
-      d.setTime(d.getTime() + exp * 1000);
+        d.setTime(d.getTime() + exp * 1000);
         exp = props.expires = d;
     }
     if (exp && exp.toUTCString) {
         props.expires = exp.toUTCString();
     }
     value = encodeURIComponent(value);
-    let updatedCookie = name + '=' + value;
+    let updatedCookie = name + '=' + value + '; path=/';
     for (const propName in props) {
         updatedCookie += '; ' + propName;
         const propValue = props[propName];
@@ -27,6 +27,7 @@ export function setCookie(name, value, props) {
         }
     }
     document.cookie = updatedCookie;
+    console.log(document.cookie);
     };
 
     export function deleteCookie(name) {

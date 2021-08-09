@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -9,7 +9,7 @@ import { Button, PasswordInput, Input } from '@ya.praktikum/react-developer-burg
 export const ResetPasswordPage = () => {
     const dispatch = useDispatch();
     const history = useHistory();
-    const { isUserLoggedIn, getUserEmail } = useSelector(state => state.userData)
+    const { isUserLoggedIn, getUserEmail, isResetPassword } = useSelector(state => state.userData)
 
     const [value, setValue] = useState({ password: '', token: ''});
 
@@ -17,9 +17,16 @@ export const ResetPasswordPage = () => {
         setValue({ ...value, [e.target.name]: e.target.value });
     }
 
-    const passwordResetHandler = () => {
+    const passwordResetHandler = (e) => {
+        e.preventDefault();
         dispatch(getUserResetPassword(value.password, value.token))
     }
+
+    useEffect(() => { 
+        if(isResetPassword) {
+            history.replace('/login');
+        }
+    }, [isResetPassword, history])
 
     if(isUserLoggedIn || !getUserEmail) {
         history.replace('/');
