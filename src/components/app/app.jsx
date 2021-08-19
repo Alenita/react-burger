@@ -9,14 +9,15 @@ import { MainPage } from '../../pages/main-page';
 import { LoginPage } from '../../pages/login';
 import { RegistrationPage } from '../../pages/registration';
 import { ForgotPasswordPage } from '../../pages/forgot-password';
-import { ProfilePage } from '../../pages/profile';
+import { ProfilePage } from '../../pages/profile/profile';
 import { ResetPasswordPage } from "../../pages/reset-password";
 import { ProtectedRoute } from '../protected-route/protected-route';
 import { getUserInfo } from '../../services/actions/user';
-import { FeedPage } from '../../pages/feed';
+import { FeedPage } from '../../pages/feed/feed';
 import { NotFound404 } from '../../pages/404page';
 import { IngredientPage } from '../../pages/ingredient-page';
 import IngredientDetails from '../ingredient-details/ingredient-details';
+import { OrderInfo } from '../order-info/order-info';
 
 const App =() => {
   const dispatch = useDispatch();
@@ -58,9 +59,6 @@ const App =() => {
           <Route path='/reset-password' exact={true}>
             <ResetPasswordPage />
           </Route>
-          {/* <ProtectedRoute path='/profile/orders' exact={true}>
-            <OrdersHistoryPage />
-          </ProtectedRoute> */}
           <ProtectedRoute path='/profile'>
             <ProfilePage />
           </ProtectedRoute>
@@ -70,17 +68,35 @@ const App =() => {
           <Route path='/ingredients/:id'>
             <IngredientPage />
           </Route>
+          <Route path='/feed/:id'>
+            <OrderInfo />
+          </Route>
+          <ProtectedRoute path='/profile/orders/:id'>
+            <OrderInfo />
+          </ProtectedRoute>
           <Route>
             <NotFound404 />
           </Route>
         </Switch>
 
           {background && (
-            <Route path='/ingredients/:id' >
-              <Modal header='Детали ингредиента' closeHandler={closeModalHandler}>
-                <IngredientDetails />
-              </Modal>
-            </Route>
+            <Switch>
+              <Route path='/ingredients/:id' >
+                <Modal header='Детали ингредиента' closeHandler={closeModalHandler}>
+                  <IngredientDetails />
+                </Modal>
+              </Route>
+              <Route path='/feed/:id'>
+                <Modal closeHandler={closeModalHandler}>
+                  <OrderInfo/>
+                </Modal>
+              </Route>
+              <ProtectedRoute path='/profile/orders/:id'>
+                <Modal closeHandler={closeModalHandler}>
+                  <OrderInfo/>
+                </Modal>
+            </ProtectedRoute>
+           </Switch>
           )}
       </>
   );

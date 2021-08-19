@@ -1,4 +1,5 @@
 import {URL} from '../../utils/constants';
+import { getCookie } from '../../utils/utils';
 
 export const GET_ORDER_NUMBER_REQUEST = 'GET_ORDER_NUMBER_REQUEST';
 export const GET_ORDER_NUMBER_SUCCESS = 'GET_ORDER_NUMBER_SUCCESS';
@@ -11,7 +12,8 @@ export const getOrderNumber = (orderedList) => dispatch => {
     fetch(`${URL}/orders`, {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + getCookie('accessToken')
         },
         body: JSON.stringify({
                 ingredients: orderedList

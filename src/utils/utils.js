@@ -1,3 +1,6 @@
+import { formatRelative} from 'date-fns';
+import { ru } from 'date-fns/locale';
+
 /* eslint-disable no-useless-escape */
 export const getCookie = (name) => {
     const matches = document.cookie.match(
@@ -32,4 +35,26 @@ export function setCookie(name, value, props) {
 
     export function deleteCookie(name) {
         setCookie(name, null, { expires: -1 });
+    };
+    
+    export const sortByDate = (a, b) => {
+        return new Date(b.createdAt) - new Date(a.createdAt);
+    }
+
+    export const getStatus = (status) => {
+        switch(status) {
+            case 'pending': 
+                return 'Готовится'
+            case 'done': 
+                return 'Выполнен'
+            case 'created': 
+                return 'Создан'
+            default: 
+                return ''
+        }
+    }
+
+    export const getDate = (createdAt) => {
+        const date = formatRelative(new Date(createdAt), new Date(), { locale: ru, });
+        return `${date} i-GMT+3`
     };

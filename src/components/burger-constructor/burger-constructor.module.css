@@ -15,7 +15,7 @@
 .mainIngredientsList {
     composes: orders;
     height: 44vh;
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 
 .mainIngredientsList::-webkit-scrollbar {

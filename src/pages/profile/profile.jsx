@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
-import { NavLink, Switch, Route } from 'react-router-dom';
+import { NavLink, Switch, Route, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import styles from './profile.module.css';
 
-import { getUserLogout, getUserInfoUpdate } from '../services/actions/user';
+import { getUserLogout, getUserInfoUpdate } from '../../services/actions/user';
 import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-components'
-import { OrdersHistoryPage } from './orders-history';
+import { OrdersHistoryPage } from '../orders-history/orders-history';
 
 export const ProfilePage = () => {
+    const location = useLocation();
     const { user } = useSelector(state => state.userData)
     const dispatch = useDispatch();
 
@@ -43,7 +44,7 @@ export const ProfilePage = () => {
     return(
             <>
                 <main className={styles.container}>
-                    <div className={styles.wrapper}>
+                    <div className={styles.wrapper} style={{width: location.pathname==='/profile/orders' ? '100%' : '65%'}}>
                         <div className={styles.left}>
                             <NavLink  to='/profile' exact={true}
                                     activeStyle={{

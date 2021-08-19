@@ -25,6 +25,8 @@ const ConstructorFooter = () => {
         setDetailsOpen(false);
     }
 
+    const allIngredients = [...constructorIngredients, bun];
+
     const orderDetailsHandler = () => {
         if (!bun) {
             return;
@@ -32,7 +34,7 @@ const ConstructorFooter = () => {
         if (!isUserLoggedIn) {
             history.replace('/login');
         } else {
-            dispatch(getOrderNumber(constructorIngredients.map(item=> item._id)));
+            dispatch(getOrderNumber(allIngredients.map(item=> item._id)));
             setDetailsOpen(true);
             dispatch(resetConstructor());
         }
