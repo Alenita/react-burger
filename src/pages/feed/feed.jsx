@@ -9,7 +9,8 @@ import { getIngredients } from '../../services/actions/ingredients';
 import {
     WS_CONNECTION_START,
     WS_CONNECTION_END,
-    WS_SEND_PONG_MESSAGE
+    WS_SEND_PONG_MESSAGE,
+    wsConnectionClosed
 } from '../../services/actions/websockets'; 
 
 export const FeedPage = () => {
@@ -21,17 +22,19 @@ export const FeedPage = () => {
 
     useEffect(()=> {
         dispatch({type: WS_CONNECTION_START});
-        if(ingredients.length === 0){
-            dispatch(getIngredients());
-        }
-        const pingPong = setInterval(() => {
-            dispatch({type: WS_SEND_PONG_MESSAGE})
-        }, 10000);
-        return () => {
-            clearInterval(pingPong);
-            dispatch({type: WS_CONNECTION_END});
-        };
-    }, []);
+        // if(ingredients.length === 0){
+        //     dispatch(getIngredients());
+        // }
+        // const pingPong = setInterval(() => {
+        //     dispatch({type: WS_SEND_PONG_MESSAGE})
+        // }, 10000);
+        // return () => {
+        //     clearInterval(pingPong);
+        //     dispatch({type: WS_CONNECTION_END});
+        // };
+        
+        return () => dispatch(wsConnectionClosed())
+    }, [dispatch]);
 
     return (
         <div className={styles.container}>
@@ -43,7 +46,7 @@ export const FeedPage = () => {
                         <Link 
                         className={styles.link}
                         to= {{ pathname: `/feed/${item._id}`, 
-                        state: {background: location} 
+                        // state: {background: location} 
                         }}>
                             <li key={item._id}
                                 className={styles.orderItem}>

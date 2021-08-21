@@ -18,28 +18,36 @@ import { NotFound404 } from '../../pages/404page';
 import { IngredientPage } from '../../pages/ingredient-page';
 import IngredientDetails from '../ingredient-details/ingredient-details';
 import { OrderInfo } from '../order-info/order-info';
+import { ingredientsReducer } from '../../services/reducers/ingredients';
+import { getIngredients } from '../../services/actions/ingredients';
+import { getProfileOrders } from '../../services/actions/websockets';
 
 const App =() => {
   const dispatch = useDispatch();
   const history = useHistory();
   const location = useLocation();
   const { isUserLoggedIn } = useSelector(state => state.userData);
+  const { ingredients } = useSelector(state => state.ingredients);
   
   const background = history.action === 'PUSH' && location.state && location.state.background;
-  const token = localStorage.getItem('refreshToken')
         
   useEffect(() => {
-    if(!isUserLoggedIn && token ){
+    if (!isUserLoggedIn) {
       dispatch(getUserInfo())
-      console.log(token)
     }
-  },[isUserLoggedIn, token, dispatch])
+  },[isUserLoggedIn, dispatch])
+
+  useEffect (() => {
+    if(ingredients.length===0){
+      dispatch(getIngredients());
+    }
+  }, [dispatch, ingredients.length])
 
   const closeModalHandler = (e) => {
     e.preventDefault();
     history.goBack();
   }
-
+  
   return (
     <>
       <Header />
@@ -78,6 +86,16 @@ const App =() => {
             <NotFound404 />
           </Route>
         </Switch>
+        <Route path='/feed/:id'>
+          {/* <Modal closeHandler={closeModalHandler}> */}
+            <OrderInfo/>
+          {/* </Modal> */}
+        </Route>
+        <ProtectedRoute path='/profile/orders/:id'>
+          {/* <Modal closeHandler={closeModalHandler}> */}
+            <OrderInfo/>
+          {/* </Modal> */}
+      </ProtectedRoute>
 
           {background && (
             <Switch>
@@ -86,7 +104,7 @@ const App =() => {
                   <IngredientDetails />
                 </Modal>
               </Route>
-              <Route path='/feed/:id'>
+              {/* <Route path='/feed/:id'>
                 <Modal closeHandler={closeModalHandler}>
                   <OrderInfo/>
                 </Modal>
@@ -95,7 +113,7 @@ const App =() => {
                 <Modal closeHandler={closeModalHandler}>
                   <OrderInfo/>
                 </Modal>
-            </ProtectedRoute>
+            </ProtectedRoute> */}
            </Switch>
           )}
       </>

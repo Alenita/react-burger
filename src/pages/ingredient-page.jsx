@@ -9,9 +9,9 @@ export const IngredientPage = () => {
     const id = useParams().id;
     const { ingredients, ingredientDetails } = useSelector(state => state.ingredients)
 
-    useEffect(() => {
-        dispatch(getIngredients())
-    }, [dispatch])
+    // useEffect(() => {
+    //     dispatch(getIngredients())
+    // }, [dispatch])
 
     let currentIngredient = ingredients.find((item) => item._id === id);
 

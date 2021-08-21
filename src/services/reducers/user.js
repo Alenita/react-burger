@@ -69,7 +69,6 @@ export const userReducer = ( state=initialState, action ) => {
                 userDataRequest: false, 
                 userDataError: false,
                 user: action.payload.user,
-                // isUserLoggedIn: true
             }
         }
 
@@ -84,7 +83,6 @@ export const userReducer = ( state=initialState, action ) => {
                 ...state,
                 userDataRequest: false,
                 getUserEmail: true,
-                isUserLoggedIn: false 
             }
         }
 
@@ -93,7 +91,6 @@ export const userReducer = ( state=initialState, action ) => {
                 ...state,
                 userDataRequest: false,
                 isResetPassword: true,
-                isUserLoggedIn: false 
             }
         }
 

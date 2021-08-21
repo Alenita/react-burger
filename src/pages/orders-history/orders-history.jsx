@@ -8,7 +8,8 @@ import { getIngredients } from '../../services/actions/ingredients';
 import {
     WS_PROFILE_CONNECTION_START,
     WS_CONNECTION_END,
-    WS_SEND_PONG_MESSAGE
+    WS_SEND_PONG_MESSAGE,
+    wsConnectionClosed
 } from '../../services/actions/websockets'; 
 
 export const OrdersHistoryPage = () => {
@@ -19,17 +20,18 @@ export const OrdersHistoryPage = () => {
 
     useEffect(()=> {
         dispatch({type: WS_PROFILE_CONNECTION_START});
-        if(ingredients.length === 0){
-            dispatch(getIngredients());
-        }
-        const pingPong = setInterval(() => {
-            dispatch({type: WS_SEND_PONG_MESSAGE})
-        }, 10000);
-        return () => {
-            clearInterval(pingPong);
-            dispatch({type: WS_CONNECTION_END});
-        };
-    }, []);
+        // if(ingredients.length === 0){
+        //     dispatch(getIngredients());
+        // }
+        // const pingPong = setInterval(() => {
+        //     dispatch({type: WS_SEND_PONG_MESSAGE})
+        // }, 10000);
+        // return () => {
+        //     clearInterval(pingPong);
+        //     dispatch({type: WS_CONNECTION_END});
+        // };
+        return () => dispatch(wsConnectionClosed())
+    }, [dispatch]);
 
 
 
@@ -39,7 +41,6 @@ export const OrdersHistoryPage = () => {
                 {orders?.map((item) => 
                 <Link
                     className={styles.link}
-                    key={item._id}
                     to={{
                     pathname: `/profile/orders/${item._id}`,
                     state: { background: location },

@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import orderCardStyles from './order.module.css';
 import { useSelector, useDispatch } from 'react-redux';
 import { nanoid } from 'nanoid';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 
 import { getStatus, getDate } from '../../utils/utils';
 import { getIngredients } from '../../services/actions/ingredients';
@@ -16,19 +16,19 @@ export const Order = ({order}) => {
     const orderedIngredients = [];
     let sum = 0;
 
-    useEffect(()=> {
-        if(ingredients.length===0){
-            dispatch(getIngredients());
-        }
-    }, [dispatch, ingredients.length]);
+    // useEffect(()=> {
+    //     if(ingredients.length===0){
+    //         dispatch(getIngredients());
+    //     }
+    // }, [dispatch, ingredients.length]);
     
     order.ingredients.forEach((ingredient) => {
         const foundIngredient = ingredients.find((item) => item._id === ingredient);
-        sum = sum + (foundIngredient?.type === 'bun' ? foundIngredient?.price*2 : foundIngredient?.price)
+        sum = sum + foundIngredient?.price;
         orderedIngredients.push(foundIngredient)
     });
 
-    return (
+    return ( 
         <section className={orderCardStyles.section}>
             <div className={orderCardStyles.container}>
                 <div className={orderCardStyles.line}>
@@ -62,7 +62,7 @@ export const Order = ({order}) => {
                     </ul>
                     <div className={orderCardStyles.price}>
                         <p className="text text_type_digits-default mr-2">{sum}</p>
-                        <CurrencyIcon />
+                        <CurrencyIcon className={StyleSheet.svg}/>
                     </div>
                 </div>
                 {/* <p>{order.status}</p> */}

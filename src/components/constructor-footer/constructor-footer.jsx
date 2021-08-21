@@ -13,22 +13,22 @@ const ConstructorFooter = () => {
     const history = useHistory();
     const dispatch = useDispatch();
 
-    const { constructorIngredients, bun } = useSelector(state => state.constructorStore);
+    const { constructorIngredients, topBun, bottomBun } = useSelector(state => state.constructorStore);
     const { isUserLoggedIn } = useSelector(state => state.userData);
     const { orderId } = useSelector(state => state.order);
     const [ detailsOpen, setDetailsOpen ] = useState(false);
 
     const mainIngredientsCost = constructorIngredients?.reduce((acc, item) => {return acc + item.price}, 0);
-    const totalSum = mainIngredientsCost + bun?.price*2;
+    const totalSum = mainIngredientsCost + topBun?.price + bottomBun?.price;
 
     const closeDetailsHandler = () => {
         setDetailsOpen(false);
     }
 
-    const allIngredients = [...constructorIngredients, bun];
+    const allIngredients = [...constructorIngredients, topBun, bottomBun];
 
     const orderDetailsHandler = () => {
-        if (!bun) {
+        if (!topBun) {
             return;
         }
         if (!isUserLoggedIn) {

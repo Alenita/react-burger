@@ -97,7 +97,7 @@ export const getUserLogin = (email,password) => dispatch => {
                 type: GET_USER_LOGIN_SUCCESS, 
                 payload: res,
             })
-        if (res.refreshToken) {
+        if (res.refreshToken && res.accessToken) {
             setCookie('accessToken', res.accessToken.split('Bearer ')[1]);;
             localStorage.setItem('refreshToken', res.refreshToken);
         }})
@@ -172,11 +172,15 @@ export const getUserResetPassword = (password,token) => dispatch => {
 };
 
 export const getUserInfo = () => dispatch => {
+    if (!localStorage.getItem('refreshToken')) {
+        return
+    }
     dispatch({
         type: GET_USER_INFO_REQUEST
     });
     fetch(`${URL}/auth/user`, {
         method: 'GET',
+        cache: 'no-cache',
         headers: {
             'Content-Type': 'application/json',
             'Authorization': 'Bearer ' + getCookie('accessToken')
@@ -203,12 +207,13 @@ export const getUserInfo = () => dispatch => {
     });
 };
 
-export const getUserRefreshToken = (afterRefreshFunc) => dispatch => {
+export const getUserRefreshToken = () => dispatch => {
     dispatch({
         type: GET_USER_REFRESH_TOKEN_REQUEST
     })
     fetch(`${URL}/auth/token`, {
         method: 'POST',
+        cache: 'no-cache',
         headers: {
             'Content-Type': 'application/json'
         },
@@ -230,7 +235,7 @@ export const getUserRefreshToken = (afterRefreshFunc) => dispatch => {
         })
         localStorage.setItem('refreshToken', res.refreshToken);
         setCookie('accessToken', res.accessToken.split('Bearer ')[1]);
-        dispatch(afterRefreshFunc)
+        dispatch(getUserInfo())
     })
     .catch(error => {
         dispatch({
