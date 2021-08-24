@@ -21,6 +21,7 @@ import { OrderInfo } from '../order-info/order-info';
 import { ingredientsReducer } from '../../services/reducers/ingredients';
 import { getIngredients } from '../../services/actions/ingredients';
 import { getProfileOrders } from '../../services/actions/websockets';
+import { OrderPage } from '../../pages/order-page/order-page';
 
 const App =() => {
   const dispatch = useDispatch();
@@ -70,32 +71,19 @@ const App =() => {
           <ProtectedRoute path='/profile'>
             <ProfilePage />
           </ProtectedRoute>
-          <Route path='/feed' exact={true}>
+          <Route path='/feed/:id'>
+            <OrderPage />
+          </Route>
+          <Route path='/feed' >
             <FeedPage />
           </Route>
           <Route path='/ingredients/:id'>
             <IngredientPage />
           </Route>
-          <Route path='/feed/:id'>
-            <OrderInfo />
-          </Route>
-          <ProtectedRoute path='/profile/orders/:id'>
-            <OrderInfo />
-          </ProtectedRoute>
           <Route>
             <NotFound404 />
           </Route>
         </Switch>
-        <Route path='/feed/:id'>
-          {/* <Modal closeHandler={closeModalHandler}> */}
-            <OrderInfo/>
-          {/* </Modal> */}
-        </Route>
-        <ProtectedRoute path='/profile/orders/:id'>
-          {/* <Modal closeHandler={closeModalHandler}> */}
-            <OrderInfo/>
-          {/* </Modal> */}
-      </ProtectedRoute>
 
           {background && (
             <Switch>
@@ -104,17 +92,17 @@ const App =() => {
                   <IngredientDetails />
                 </Modal>
               </Route>
-              {/* <Route path='/feed/:id'>
+              <Route path='/feed/:id'>
                 <Modal closeHandler={closeModalHandler}>
                   <OrderInfo/>
                 </Modal>
               </Route>
-              <ProtectedRoute path='/profile/orders/:id'>
+              <Route path='/profile/orders/:id'>
                 <Modal closeHandler={closeModalHandler}>
                   <OrderInfo/>
                 </Modal>
-            </ProtectedRoute> */}
-           </Switch>
+              </Route>
+            </Switch>
           )}
       </>
   );

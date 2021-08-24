@@ -57,7 +57,7 @@ export const getUserRegister = (email,password,name) => async dispatch => {
         .then((res) => {
             dispatch({
                 type: GET_USER_REGISTER_SUCCESS, 
-                payload: res,
+                payload: res.user,
             })
             return res;
         })
@@ -95,7 +95,7 @@ export const getUserLogin = (email,password) => dispatch => {
         .then((res) => {
             dispatch({
                 type: GET_USER_LOGIN_SUCCESS, 
-                payload: res,
+                payload: res.user,
             })
         if (res.refreshToken && res.accessToken) {
             setCookie('accessToken', res.accessToken.split('Bearer ')[1]);;
@@ -131,9 +131,9 @@ export const getUserLogin = (email,password) => dispatch => {
         .then((res) =>{ 
             dispatch({
                 type: GET_USER_FORGOT_PASSWORD_SUCCESS, 
-                payload: res,
+                payload: res.user,
             })
-            return res;
+            return res.user;
         })
         .catch(error => {
             console.log('Error forgot password message: ' + error)
@@ -162,7 +162,7 @@ export const getUserResetPassword = (password,token) => dispatch => {
     })
     .then((res) => dispatch({
         type: GET_USER_RESET_PASSWORD_SUCCESS, 
-        payload: res,
+        payload: res.user,
         })
     )
     .catch(error => {
@@ -193,7 +193,7 @@ export const getUserInfo = () => dispatch => {
         } 
         dispatch({
             type: GET_USER_INFO_SUCCESS, 
-            payload: res,
+            payload: res.user,
         });
     })
     .catch(res => {
@@ -231,7 +231,7 @@ export const getUserRefreshToken = () => dispatch => {
     .then(res => {
         dispatch({
             type: GET_USER_REFRESH_TOKEN_SUCCESS,
-            payload: res,
+            payload: res.user,
         })
         localStorage.setItem('refreshToken', res.refreshToken);
         setCookie('accessToken', res.accessToken.split('Bearer ')[1]);
@@ -266,7 +266,7 @@ export const getUserInfoUpdate = (email, password, name) => dispatch => {
     .then(res => {
         dispatch({
             type: GET_USER_INFO_UPDATE_SUCCESS,
-            payload: res,
+            payload: res.user,
         })
     })
     .catch(error => {
@@ -301,7 +301,7 @@ export const getUserLogout = () => dispatch => {
     .then(res => {
         dispatch({
             type: GET_USER_LOGOUT_SUCCESS,
-            payload: res,
+            payload: res.user,
         });
         localStorage.setItem('refreshToken', '');
         deleteCookie('accessToken');

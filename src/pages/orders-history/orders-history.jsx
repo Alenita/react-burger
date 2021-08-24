@@ -11,11 +11,12 @@ import {
     WS_SEND_PONG_MESSAGE,
     wsConnectionClosed
 } from '../../services/actions/websockets'; 
+import { getUserInfo } from '../../services/actions/user';
 
 export const OrdersHistoryPage = () => {
     let location = useLocation();
     const { ingredients } = useSelector(state => state.ingredients);
-    const {  orders } = useSelector(state => state.wsStore.profileOrders);
+    const {  profileOrders } = useSelector(state => state.wsStore);
     const dispatch = useDispatch();
 
     useEffect(()=> {
@@ -33,19 +34,22 @@ export const OrdersHistoryPage = () => {
         return () => dispatch(wsConnectionClosed())
     }, [dispatch]);
 
-
+    useEffect(() => {
+        dispatch(getUserInfo())
+    }, [dispatch])
 
     return (
         <div className={styles.container}>
             <ul className={styles.list}>
-                {orders?.map((item) => 
+                {profileOrders?.map((item) => 
                 <Link
+                    key={item._id}
                     className={styles.link}
                     to={{
-                    pathname: `/profile/orders/${item._id}`,
+                    pathname: `/profile/orders/${item.number}`,
                     state: { background: location },
                     }}>
-                    <li key={item._id}
+                    <li
                         className={styles.orderItem}>
                         <Order 
                             className={styles.order}

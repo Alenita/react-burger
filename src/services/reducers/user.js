@@ -40,25 +40,25 @@ const initialState = {
 
 export const userReducer = ( state=initialState, action ) => {
     switch (action.type) {
-        case GET_USER_LOGIN_REQUEST:
-        case GET_USER_REGISTER_REQUEST:
-        case GET_USER_FORGOT_PASSWORD_REQUEST:
-        case GET_USER_RESET_PASSWORD_REQUEST:
-        case GET_USER_INFO_UPDATE_REQUEST:
-        case GET_USER_INFO_REQUEST:
-        case GET_USER_REFRESH_TOKEN_REQUEST: {
-            return { 
-                ...state, 
-                userDataRequest: true 
-            };
-        }
+        // case GET_USER_LOGIN_REQUEST:
+        // case GET_USER_REGISTER_REQUEST:
+        // case GET_USER_FORGOT_PASSWORD_REQUEST:
+        // case GET_USER_RESET_PASSWORD_REQUEST:
+        // case GET_USER_INFO_UPDATE_REQUEST:
+        // case GET_USER_INFO_REQUEST:
+        // case GET_USER_REFRESH_TOKEN_REQUEST: {
+        //     return { 
+        //         ...state, 
+        //         userDataRequest: true 
+        //     };
+        // }
 
         case GET_USER_LOGIN_SUCCESS: {
             return {
                 ...state, 
                 userDataRequest: false, 
                 userDataError: false,
-                user: action.payload.user,
+                user: action.payload,
                 isUserLoggedIn: true
             };
         }
@@ -68,7 +68,7 @@ export const userReducer = ( state=initialState, action ) => {
                 ...state, 
                 userDataRequest: false, 
                 userDataError: false,
-                user: action.payload.user,
+                user: action.payload,
             }
         }
 
@@ -115,7 +115,7 @@ export const userReducer = ( state=initialState, action ) => {
             return {
                 ...state,
                 userDataRequest: false,
-                user: action.payload.user,
+                user: action.payload,
                 isUserLoggedIn: true,
             }
         }
@@ -123,14 +123,16 @@ export const userReducer = ( state=initialState, action ) => {
         case GET_USER_REFRESH_TOKEN_SUCCESS: {
             return {
                 ...state,
-                user: action.payload.user
+                userDataError: false,
+                isUserLoggedIn: true,
+                user: action.payload
             }
         } 
 
         case GET_USER_INFO_UPDATE_SUCCESS: {
             return {
                 ...state,
-                user: action.payload.user
+                user: action.payload
             }
         }
 

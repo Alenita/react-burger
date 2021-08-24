@@ -63,7 +63,7 @@ export const getOrderNumber = (orderedList) => dispatch => {
             })
             .then((res) => dispatch({
                 type: GET_ORDER_CARD_DETAILS_SUCCESS, 
-                orderCardDetails: res
+                orderCardDetails: res.orders[0]
                 }),
             )
             .catch(error => {

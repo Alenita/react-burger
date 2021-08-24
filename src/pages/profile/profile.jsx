@@ -6,6 +6,7 @@ import styles from './profile.module.css';
 import { getUserLogout, getUserInfoUpdate } from '../../services/actions/user';
 import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-components'
 import { OrdersHistoryPage } from '../orders-history/orders-history';
+import { OrderPage } from '../order-page/order-page';
 
 export const ProfilePage = () => {
     const location = useLocation();
@@ -142,6 +143,9 @@ export const ProfilePage = () => {
                                 }
                             </form>
                         </div>
+                        </Route>
+                        <Route path='/profile/orders/:id'>
+                            <OrderPage />
                         </Route>
                         <Route path='/profile/orders' exact={true}>
                             <OrdersHistoryPage />

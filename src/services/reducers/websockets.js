@@ -10,16 +10,10 @@ import {
 
 export const initialState = {
     wsConnected: false,
-    feedOrders: {
-        orders: [],
-        total: null,
-        totalToday: null,
-    },
-    profileOrders: {
-        orders: [],
-        total: null,
-        totalToday: null,
-    }
+    feedOrders: [],
+    profileOrders: [],
+    total: null,
+    totalToday: null,
 };
 
 export const wsReducer = ( state=initialState, action ) => {
@@ -32,8 +26,7 @@ export const wsReducer = ( state=initialState, action ) => {
         }
         case WS_CONNECTION_ERROR: {
             return {
-                ...state,
-                wsConnected: false
+                initialState
             };
         }
         case WS_CONNECTION_CLOSED: {
@@ -45,21 +38,17 @@ export const wsReducer = ( state=initialState, action ) => {
         case WS_CONNECTION_GET_FEED_ORDERS: {
             return {
                 ...state,
-                feedOrders: {
-                    orders: action.payload.orders?.sort(sortByDate),
-                    total: action.payload.total,
-                    totalToday: action.payload.totalToday
-                }
+                feedOrders: action.payload.orders?.sort(sortByDate),
+                total: action.payload.total,
+                totalToday: action.payload.totalToday
             }
         }
         case WS_CONNECTION_GET_PROFILE_ORDERS: {
             return {
                 ...state,
-                profileOrders: {
-                    orders: action.payload.orders?.sort(sortByDate),
-                    total: action.payload.total,
-                    totalToday: action.payload.totalToday
-                }
+                profileOrders: action.payload.orders?.sort(sortByDate),
+                total: action.payload.total,
+                totalToday: action.payload.totalToday
             }
         }
         default: {

@@ -3,9 +3,9 @@ import styles from './orders-queue.module.css';
 import { useSelector } from 'react-redux';
 
 export const OrdersQueue = () => {
-    const { orders, total, totalToday } = useSelector(state => state.wsStore.feedOrders)
-    const doneOrders = orders?.filter(item => item.status==="done")
-    const pendingOrders = orders?.filter(item => item.status==="pending")
+    const { feedOrders, total, totalToday } = useSelector(state => state.wsStore)
+    const doneOrders = feedOrders?.filter(item => item.status==="done")
+    const pendingOrders = feedOrders?.filter(item => item.status==="pending")
     
     return (
         <section className={styles.container}>

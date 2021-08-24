@@ -27,8 +27,8 @@ const wsActions = {
     getProfileOrders: WS_CONNECTION_GET_PROFILE_ORDERS
 };
 
-const wsFeedOrdersMiddleware = wsMiddleware(wsUrl,wsActions);
-const wsProfileOrdersMiddleware = wsMiddleware(wsProfileUrl,wsActions,true)
+const wsFeedOrdersMiddleware = wsMiddleware(wsUrl, wsActions);
+const wsProfileOrdersMiddleware = wsMiddleware(wsProfileUrl, wsActions, true)
 
 const composeEnhancers =
     typeof window === 'object' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
