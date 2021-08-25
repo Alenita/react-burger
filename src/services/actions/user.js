@@ -213,7 +213,6 @@ export const getUserRefreshToken = () => dispatch => {
     })
     fetch(`${URL}/auth/token`, {
         method: 'POST',
-        cache: 'no-cache',
         headers: {
             'Content-Type': 'application/json'
         },
@@ -231,7 +230,7 @@ export const getUserRefreshToken = () => dispatch => {
     .then(res => {
         dispatch({
             type: GET_USER_REFRESH_TOKEN_SUCCESS,
-            payload: res.user,
+            payload: res,
         })
         localStorage.setItem('refreshToken', res.refreshToken);
         setCookie('accessToken', res.accessToken.split('Bearer ')[1]);

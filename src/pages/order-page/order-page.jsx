@@ -24,7 +24,7 @@ export const OrderPage = () => {
     const orderedIngredients = [];
     let sum = 0;
 
-    orderCardDetails.ingredients.forEach((ingredient) => {
+    orderCardDetails.ingredients?.forEach((ingredient) => {
         const foundIngredient = ingredients.find((item) => item._id === ingredient);
         sum = sum + foundIngredient?.price
         orderedIngredients.push(foundIngredient)
@@ -33,11 +33,15 @@ export const OrderPage = () => {
     const uniqueIngredients = [...new Set(orderedIngredients)];
 
     const getQuantity = (ingredient) => {
-        return orderCardDetails.ingredients.filter(item => item === ingredient).length
-    }
+        return orderCardDetails.ingredients?.filter(item => item === ingredient).length
+    };
+
+    const orderDate = () => {
+        return orderCardDetails.createdAt ? getDate(orderCardDetails.createdAt) : null
+    };
 
     return( 
-        (ingredients.length > 0 && !ingredientsRequest && !ingredientsError && orderCardDetails) ?
+        orderCardDetails && ingredients.length !==0 && !ingredientsRequest &&
         <section className={styles.section}>
             <div className={styles.header}>
                 <span className="text text_type_digits-default mb-10">#{orderCardDetails.number}</span>
@@ -60,13 +64,12 @@ export const OrderPage = () => {
                 )}
             </ul>
             <div className={styles.line}>
-                <p className='text text_type_main-default text_color_inactive'>{getDate(orderCardDetails.createdAt)}</p>
+                <p className='text text_type_main-default text_color_inactive'>{orderDate}</p>
                 <div className={styles.left}>
                     <span className='text_type_digits-default mr-2'>{sum}</span>
                     <CurrencyIcon />
                 </div>
             </div>
         </section>
-        : null
     )
 };

@@ -45,7 +45,9 @@ export const ProfilePage = () => {
     return(
             <>
                 <main className={styles.container}>
-                    <div className={styles.wrapper} style={{width: location.pathname==='/profile/orders' ? '100%' : '65%'}}>
+                    <div className={styles.wrapper} 
+                        style={{width: location.pathname==='/profile/orders' ? '100%' : '65%'}}
+                    >
                         <div className={styles.left}>
                             <NavLink  to='/profile' exact={true}
                                     activeStyle={{
@@ -73,82 +75,82 @@ export const ProfilePage = () => {
                         </div>
                         <Switch>
                         <Route path='/profile' exact={true}>
-                        <div className={styles.right}>
-                            <form onSubmit={editDataHandler}
-                                className={styles.form}
-                            >
-                                <Input 
-                                    disabled={disabledInput ? true : false}
-                                    icon={'EditIcon'}
-                                    type='text'
-                                    placeholder='Имя'
-                                    onChange={(e) => {
-                                        setUserName(e.target.value);
-                                        setShowButtons(true);
-                                    }}
-                                    value={userName}
-                                    name='name'
-                                    error={false}
-                                    onIconClick={onIconClick}
-                                    errorText={'Ошибка'}
-                                    size={'default'}
-                                />
-                                <div className={`mt-6`}>
+                            <div className={styles.right}>
+                                <form onSubmit={editDataHandler}
+                                    className={styles.form}
+                                >
                                     <Input 
                                         disabled={disabledInput ? true : false}
-                                        type='text'
                                         icon={'EditIcon'}
-                                        placeholder='Логин'
+                                        type='text'
+                                        placeholder='Имя'
                                         onChange={(e) => {
-                                            setUserEmail(e.target.value);
+                                            setUserName(e.target.value);
                                             setShowButtons(true);
                                         }}
-                                        value={userEmail}
-                                        name='email'
+                                        value={userName}
+                                        name='name'
                                         error={false}
                                         onIconClick={onIconClick}
                                         errorText={'Ошибка'}
                                         size={'default'}
                                     />
-                                </div>
-                                <div className={`mt-6`}>
-                                    <Input 
-                                        disabled={disabledInput ? true : false}
-                                        onChange={(e) => {
-                                            setUserPassword(e.target.value);
-                                            setShowButtons(true);
-                                        }} 
-                                        type='text'
-                                        placeholder='Пароль'
-                                        icon={'EditIcon'}
-                                        value={userPassword}
-                                        name='password'
-                                        error={false}
-                                        // ref={inputRef}
-                                        onIconClick={onIconClick}
-                                        errorText={'Ошибка'}
-                                        size={'default'}
-                                    />
-                                </div>
-                                { showButtons && 
-                                    <div className={styles.buttons}>
-                                        <span onClick={rejectEditDataHandler}
-                                            className={`${styles.reject} text text_type_main-default mr-6`}>
-                                                Отмена
-                                        </span>
-                                        <Button  type="primary" size="medium">
-                                            Сохранить
-                                        </Button>
+                                    <div className={`mt-6`}>
+                                        <Input 
+                                            disabled={disabledInput ? true : false}
+                                            type='text'
+                                            icon={'EditIcon'}
+                                            placeholder='Логин'
+                                            onChange={(e) => {
+                                                setUserEmail(e.target.value);
+                                                setShowButtons(true);
+                                            }}
+                                            value={userEmail}
+                                            name='email'
+                                            error={false}
+                                            onIconClick={onIconClick}
+                                            errorText={'Ошибка'}
+                                            size={'default'}
+                                        />
                                     </div>
-                                }
-                            </form>
-                        </div>
-                        </Route>
-                        <Route path='/profile/orders/:id'>
-                            <OrderPage />
+                                    <div className={`mt-6`}>
+                                        <Input 
+                                            disabled={disabledInput ? true : false}
+                                            onChange={(e) => {
+                                                setUserPassword(e.target.value);
+                                                setShowButtons(true);
+                                            }} 
+                                            type='text'
+                                            placeholder='Пароль'
+                                            icon={'EditIcon'}
+                                            value={userPassword}
+                                            name='password'
+                                            error={false}
+                                            // ref={inputRef}
+                                            onIconClick={onIconClick}
+                                            errorText={'Ошибка'}
+                                            size={'default'}
+                                        />
+                                    </div>
+                                    { showButtons && 
+                                        <div className={styles.buttons}>
+                                            <span onClick={rejectEditDataHandler}
+                                                className={`${styles.reject} text text_type_main-default mr-6`}>
+                                                    Отмена
+                                            </span>
+                                            <Button  type="primary" size="medium">
+                                                Сохранить
+                                            </Button>
+                                        </div>
+                                    }
+                                </form>
+                            </div>
                         </Route>
                         <Route path='/profile/orders' exact={true}>
                             <OrdersHistoryPage />
+                        </Route>
+                        <Route path='/profile/orders/:id'>
+                            <OrderPage />
                         </Route>
                     </Switch>
                 </div>
