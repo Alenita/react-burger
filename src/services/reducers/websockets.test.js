@@ -133,4 +133,65 @@ describe('wsReducer', () => {
             totalToday: 30,
         })
     });
+    it('Должен сохранять данные заказок пользователя', () => {
+        expect(wsReducer({
+            wsConnected: true,
+            feedOrders: [],
+            profileOrders: [],
+            total: null,
+            totalToday: null,
+        }, 
+        {
+            type: types.WS_CONNECTION_GET_PROFILE_ORDERS,
+            payload: {
+                orders: [
+                    {
+                        _id: "61257002f0871d001b100df2",
+                        ingredients: [ "60d3b41abdacab0026a733cd", "60d3b41abdacab0026a733cf", "60d3b41abdacab0026a733ce" ],
+                        status: "done",
+                        name: "Традиционный-галактический антарианский space бургер",
+                        createdAt: "2021-08-24T22:17:38.664Z",
+                        updatedAt: "2021-08-24T22:17:38.849Z", 
+                        number: 2259
+                    },
+                    {
+                        _id: "61256cfaf0871d001b100def",
+                        ingredients: [ "60d3b41abdacab0026a733cf", "60d3b41abdacab0026a733ce" ],
+                        status: "done",
+                        name: "Флюоресцентный био-марсианский space бургер",
+                        createdAt: "2021-08-24T22:04:42.597Z",
+                        updatedAt: "2021-08-24T22:04:42.916Z", 
+                        number: 2270
+                    }
+                ],
+                total: 2400,
+                totalToday: 30,
+            }
+        })).toEqual({
+            wsConnected: true,
+            feedOrders: [],
+            profileOrders: [
+                {
+                    _id: "61257002f0871d001b100df2",
+                    ingredients: [ "60d3b41abdacab0026a733cd", "60d3b41abdacab0026a733cf", "60d3b41abdacab0026a733ce" ],
+                    status: "done",
+                    name: "Традиционный-галактический антарианский space бургер",
+                    createdAt: "2021-08-24T22:17:38.664Z",
+                    updatedAt: "2021-08-24T22:17:38.849Z", 
+                    number: 2259
+                },
+                {
+                    _id: "61256cfaf0871d001b100def",
+                    ingredients: [ "60d3b41abdacab0026a733cf", "60d3b41abdacab0026a733ce" ],
+                    status: "done",
+                    name: "Флюоресцентный био-марсианский space бургер",
+                    createdAt: "2021-08-24T22:04:42.597Z",
+                    updatedAt: "2021-08-24T22:04:42.916Z", 
+                    number: 2270
+                }
+            ],
+            total: 2400,
+            totalToday: 30,
+        })
+    });
 })
