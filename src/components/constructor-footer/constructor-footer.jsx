@@ -45,7 +45,7 @@ const ConstructorFooter = () => {
     return (
         <footer className={styles.container}>
             <div className={styles.price}>
-                <p className={`text text_type_digits-medium mr-2`}>
+                <p className={`text text_type_digits-medium mr-2`} data-test-id='total-cost'>
                     {totalSum || mainIngredientsCost || 0}
                 </p>
                 <CurrencyIcon type="primary" />
