@@ -11,7 +11,7 @@ import { deleteIngredient } from "../../services/actions/constructor-action";
 
 const BurgerConstructor = () => {
     const dispatch = useDispatch();
-    const { constructorIngredients, bun } = useSelector(state => state.constructorStore);
+    const { constructorIngredients, topBun, bottomBun } = useSelector(state => state.constructorStore);
 
     const [, dropTarget] = useDrop({
         accept: 'ingredient',
@@ -20,9 +20,9 @@ const BurgerConstructor = () => {
             },
     });
 
-    const ingredientPosition = (position) => {
-        return position === "top" ? "(верх)" : "(низ)"
-    }
+    // const ingredientPosition = (position) => {
+    //     return position === "top" ? "(верх)" : "(низ)"
+    // }
 
     const deleteHandler = (id) => {
         dispatch(deleteIngredient(id))
@@ -33,13 +33,13 @@ const BurgerConstructor = () => {
         <section className={styles.container}>
             <div className={styles.orders} ref={dropTarget}>
                 <div className={`pl-8`}>
-                    { bun && <ConstructorElement
+                    { topBun && <ConstructorElement
                         className={styles.element}
                         type="top"
                         isLocked={true}
-                        text={bun.name + ingredientPosition("top")}
-                        price={bun.price}
-                        thumbnail={bun.image}
+                        text={topBun.name + 'верх'}
+                        price={topBun.price}
+                        thumbnail={topBun.image}
                     />}
                 </div>
                 <div className={styles.mainIngredientsList}>
@@ -58,13 +58,13 @@ const BurgerConstructor = () => {
                     )}
                 </div>
                 <div className={`pl-8`}>
-                    {bun && <ConstructorElement
+                    {bottomBun && <ConstructorElement
                         className={styles.element}
                         type="bottom"
                         isLocked={true}
-                        text={bun.name + ingredientPosition("bottom")}
-                        price={bun.price}
-                        thumbnail={bun.image}
+                        text={bottomBun.name + 'низ'}
+                        price={bottomBun.price}
+                        thumbnail={bottomBun.image}
                     />}
                 </div>
                 <ConstructorFooter />

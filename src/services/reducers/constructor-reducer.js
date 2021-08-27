@@ -8,7 +8,9 @@ import {
 
 const initialConstructor = {
     constructorIngredients: [],
-    bun: null,
+    topBun: null,
+    bottomBun: null,
+
 };
 
 export const constructorReducer = (state=initialConstructor, action) => {
@@ -18,7 +20,8 @@ export const constructorReducer = (state=initialConstructor, action) => {
             if (action.ingredientType === 'bun') {
                 return {
                     ...state,
-                    bun: {ingredientType, name, image, price, _id, uniqueId: nanoid()}
+                    topBun: {ingredientType, name, image, price, _id, uniqueId: nanoid()},
+                    bottomBun: {ingredientType, name, image, price, _id, uniqueId: nanoid()}
                 }
             } else {
                 return {...state, constructorIngredients: [...state.constructorIngredients, {ingredientType, name, image, price, _id, uniqueId: nanoid()}]}
@@ -44,8 +47,9 @@ export const constructorReducer = (state=initialConstructor, action) => {
         case RESET_CONSTRUCTOR: {
             return {
                 ...state,
-                constructorIngredients: initialConstructor.constructorIngredients,
-                bun: initialConstructor.bun,
+                constructorIngredients: [],
+                topBun: null,
+                bottomBun: null
             }
         }
 

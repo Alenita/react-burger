@@ -12,13 +12,12 @@ const IngredientsType = (props) => {
             </p>
             <ul className={styles.list}>
                 {ingredients.map((item) => 
-                    <li key={item._id}
+                    <li 
+                        key={item._id}
                         className={styles.ingredientItem}>
                         <Ingredient 
-                            className={styles.ingredientItems}
                             ingredient={item}
-                        >
-                        </Ingredient>
+                        />
                     </li>
                 )}
             </ul>

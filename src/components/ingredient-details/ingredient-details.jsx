@@ -44,9 +44,9 @@ const IngredientDetails = () => {
     
     return (
         <div className={styles.container}>
-            <img    className={`${styles.image} mb-4`} 
-                    src={ingredientDetails.image} 
-                    alt={ingredientDetails.name}/>
+            <img  className={`${styles.image} mb-4`} 
+                src={ingredientDetails.image} 
+                alt={ingredientDetails.name}/>
             <h3 className="text text_type_main-medium mb-4">{ingredientDetails.name}</h3>
             <EnergyValues />
         </div>

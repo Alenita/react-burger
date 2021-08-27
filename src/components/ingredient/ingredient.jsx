@@ -35,7 +35,6 @@ const Ingredient = ({ ingredient }) => {
 
     const onCardClickHandler = () => {
         dispatch(setIngredientDetails(ingredient))
-        console.log('loc' + location.state)
     };
 
     // const onCloseClickHandler = () => {
@@ -44,11 +43,11 @@ const Ingredient = ({ ingredient }) => {
 
     return (
             <div ref={dragRef} className={styles.ingredientCard} onClick={onCardClickHandler} style={{opacity}}>
-                <Link   className={styles.link} 
-                        to={{ 
-                            pathname: `/ingredients/${_id}`, 
-                            state: {background: location} 
-                        }}
+                <Link  className={styles.link} 
+                    to={{ 
+                        pathname: `/ingredients/${_id}`, 
+                        state: {background: location} 
+                    }}
                 >
                     <img className={styles.image} src={image} alt={name} /> 
                     <div className={styles.price}>
