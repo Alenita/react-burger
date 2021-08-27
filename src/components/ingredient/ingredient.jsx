@@ -42,7 +42,7 @@ const Ingredient = ({ ingredient }) => {
     // }
 
     return (
-            <div ref={dragRef} className={styles.ingredientCard} onClick={onCardClickHandler} style={{opacity}}>
+            <div ref={dragRef} className={styles.ingredientCard} onClick={onCardClickHandler} style={{opacity}} data-test-id='burger-ingredient'>
                 <Link  className={styles.link} 
                     to={{ 
                         pathname: `/ingredients/${_id}`, 
@@ -59,11 +59,6 @@ const Ingredient = ({ ingredient }) => {
                             {name}
                         </p>
                     </div>
-                    {/* {isOpenDetails && 
-                        <Modal onClose={onCloseClickHandler} 
-                                header="Детали ингредиента">
-                            <IngredientDetails details={ingredient}/>
-                        </Modal>} */}
                     {countIt > 0 && <Counter count={countIt} size="default" />}
                 </Link>
             </div>

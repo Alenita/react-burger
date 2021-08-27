@@ -31,8 +31,10 @@ const BurgerConstructor = () => {
     const mainIngredients = constructorIngredients.filter(item=> item.type !== 'bun');
     return (
         <section className={styles.container}>
-            <div className={styles.orders} ref={dropTarget}>
-                <div className={`pl-8`}>
+            <div className={styles.orders} ref={dropTarget} data-test-id='burger-constructor'>
+                <div className={`pl-8`}
+                    data-test-id='burger-constructor-bun'
+                >
                     { topBun && <ConstructorElement
                         className={styles.element}
                         type="top"
@@ -42,7 +44,7 @@ const BurgerConstructor = () => {
                         thumbnail={topBun.image}
                     />}
                 </div>
-                <div className={styles.mainIngredientsList}>
+                <div className={styles.mainIngredientsList}  data-test-id='burger-constructor-main'>
                     {mainIngredients && mainIngredients.map ((item, index) => 
                         <BurgerConstructorItem
                             key={item.uniqueId} 
@@ -57,7 +59,9 @@ const BurgerConstructor = () => {
                         />
                     )}
                 </div>
-                <div className={`pl-8`}>
+                <div className={`pl-8`}
+                    data-test-id='burger-constructor-bun'
+                >
                     {bottomBun && <ConstructorElement
                         className={styles.element}
                         type="bottom"

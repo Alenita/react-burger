@@ -52,9 +52,10 @@ const BurgerConstructorItem = ({ uniqueId, index, _id, price, name, image, delet
     drag(drop(ref));
 
     return (
-            <div ref={ref} className={styles.elementWithDragIcon}>
+            <div ref={ref} className={styles.elementWithDragIcon} >
                 <DragIcon type="primary" />
                 <ConstructorElement
+                    data-test-id='constructor-ingredient'
                     style={{opacity}}
                     text={name}
                     price={price}
