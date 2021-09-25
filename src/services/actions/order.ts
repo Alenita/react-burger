@@ -110,7 +110,6 @@ export const getOrderCardDetails: AppThunk = (number: number) => (dispatch: AppD
         }
     })
     .then((res) => {
-        console.log(res)
         if(!res.ok) {
             return Promise.reject(res.status);
         }

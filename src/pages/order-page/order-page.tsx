@@ -11,7 +11,6 @@ import { TIngredient } from '../../services/types/data';
 export const OrderPage = () => {
     const dispatch = useDispatch();
     const { id } = useParams<{ id?: string }>();
-    console.log(id)
     const { ingredients, ingredientsRequest, ingredientsError } = useSelector(state => state.ingredients);
     const { orderCardDetails } = useSelector(state => state.order )
 

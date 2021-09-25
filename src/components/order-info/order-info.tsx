@@ -11,7 +11,6 @@ export const OrderInfo = () => {
     const { id } = useParams<{ id?: string }>();
     const orders = useSelector(state => state.wsStore.feedOrders); 
     const { ingredients, ingredientsRequest, ingredientsError } = useSelector(state => state.ingredients);
-console.log(orders)
     let order = orders.find((item: TOrder) => item.number === Number(id));
     let orderedIngredients: TIngredient[] = [];
     let sum = 0;

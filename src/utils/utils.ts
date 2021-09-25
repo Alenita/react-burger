@@ -30,7 +30,6 @@ export function setCookie(name: string, value: string | null, props: any | null)
         }
     }
     document.cookie = updatedCookie;
-    console.log(document.cookie);
     };
 
     export function deleteCookie(name: string) {

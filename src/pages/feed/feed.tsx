@@ -33,11 +33,12 @@ export const FeedPage = () => {
                     {feedOrders?.map((item) => 
                         <Link 
                         className={styles.link}
+                        key={item._id}
                         to= {{ 
                             pathname: `/feed/${item.number}`, 
                             state: {background: location} 
                         }}>
-                            <li key={item._id}
+                            <li 
                                 className={styles.orderItem}>
                                 <Order 
                                     orderNumber={item.number}

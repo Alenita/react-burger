@@ -40,7 +40,6 @@ const BurgerIngredients = () => {
 
     const handleClick = (data: TIngredientType) => {
         const currentRef = refs.current[data];
-        console.log('ref = ' + currentRef)
         handleScrollToType(currentRef)
         setCurrentTab(data)
     };

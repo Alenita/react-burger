@@ -1,15 +1,9 @@
 import { getCookie } from "../../utils/utils";
 import { RootState } from '../store';
 import { Middleware } from 'redux';
+import { wsActions } from "../store";
 
-export type WsActions = {
-    wsStart: string,
-    wsSendMessage: string,
-    onOpen: string,
-    onClose: string,
-    onError: string,
-    getFeedOrders: string,
-}
+export type WsActions = typeof wsActions;
 
 export const wsMiddleware = (wsUrl: string, wsActions: WsActions): Middleware<{}, RootState> => {
     const socketMiddleware: Middleware<{}, RootState>  = (store) => {

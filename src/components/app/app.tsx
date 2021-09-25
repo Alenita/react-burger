@@ -51,8 +51,8 @@ const App =() => {
     }
   }, [dispatch, ingredients.length])
 
-  const closeModalHandler = (e: React.SyntheticEvent<EventTarget>) => {
-    e.preventDefault();
+  const closeModalHandler = () => {
+    // e.preventDefault();
     history.goBack();
   }
   

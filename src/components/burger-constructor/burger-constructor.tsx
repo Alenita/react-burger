@@ -21,10 +21,6 @@ const BurgerConstructor = () => {
             },
     });
 
-    // const ingredientPosition = (position) => {
-    //     return position === "top" ? "(верх)" : "(низ)"
-    // }
-
     const deleteHandler = (id: string) => {
         dispatch(deleteIngredient(id))
     };
@@ -39,7 +35,7 @@ const BurgerConstructor = () => {
                     { topBun && <ConstructorElement
                         type="top"
                         isLocked={true}
-                        text={topBun.name + 'верх'}
+                        text={topBun.name + ' (верх)'}
                         price={topBun.price}
                         thumbnail={topBun.image}
                     />}
@@ -65,7 +61,7 @@ const BurgerConstructor = () => {
                     {bottomBun && <ConstructorElement
                         type="bottom"
                         isLocked={true}
-                        text={bottomBun.name + 'низ'}
+                        text={bottomBun.name + ' (низ)'}
                         price={bottomBun.price}
                         thumbnail={bottomBun.image}
                     />}
