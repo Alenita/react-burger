@@ -1,20 +1,19 @@
 import { 
     WS_CONNECTION_START,
+    WS_CONNECTION_START_PROFILE,
     WS_CONNECTION_SUCCESS,
     WS_CONNECTION_CLOSED,
     WS_CONNECTION_ERROR, 
     WS_GET_ORDERS,
 } from '../constants';
 import { TMessage } from '../types/data';
-import { getCookie } from '../../utils/utils';
 
 export interface IWsConnect {
     readonly type: typeof WS_CONNECTION_START
 }
 
 export interface IWsProfileConnect {
-    readonly type: typeof WS_CONNECTION_START,
-    readonly token: string | undefined
+    readonly type: typeof WS_CONNECTION_START_PROFILE,
 }
 
 export interface IConnectionSuccess {
@@ -51,8 +50,7 @@ export const wsConnect = (): IWsConnect => {
 
 export const wsProfileConnect = (): IWsProfileConnect => {
     return {
-        type: WS_CONNECTION_START,
-        token: getCookie('token'),
+        type: WS_CONNECTION_START_PROFILE,
     }
 }
 

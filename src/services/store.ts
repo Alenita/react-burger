@@ -14,6 +14,7 @@ import {
     WS_CONNECTION_CLOSED,
     WS_CONNECTION_ERROR,
     WS_CONNECTION_START,
+    WS_CONNECTION_START_PROFILE,
     WS_CONNECTION_SUCCESS,
     WS_GET_ORDERS,
     WS_SEND_MESSAGE
@@ -23,6 +24,7 @@ const wsUrl = 'wss://norma.nomoreparties.space/orders';
 
 export const wsActions = {
     wsStart: WS_CONNECTION_START,
+    wsStartProfile: WS_CONNECTION_START_PROFILE,
     wsSendMessage: WS_SEND_MESSAGE,
     onOpen: WS_CONNECTION_SUCCESS,
     onClose: WS_CONNECTION_CLOSED,

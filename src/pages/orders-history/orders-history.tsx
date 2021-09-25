@@ -10,6 +10,9 @@ import {
 } from '../../services/actions/websockets'; 
 import { getUserInfo } from '../../services/actions/user';
 import { TOrder } from '../../services/types/data';
+import { getCookie } from '../../utils/utils';
+
+const token = getCookie('accessToken')
 
 export const OrdersHistoryPage = () => {
     let location = useLocation();
@@ -20,7 +23,8 @@ export const OrdersHistoryPage = () => {
         () => {
         dispatch(getUserInfo());
         dispatch(wsProfileConnect());
-        return (): void => {
+        console.log('tok ' + token)
+        return () => {
             dispatch(wsConnectionClosed())
         }
     }, [dispatch]);

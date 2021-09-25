@@ -14,6 +14,7 @@ export const wsMiddleware = (wsUrl: string, wsActions: WsActions): Middleware<{}
             const { type, payload } = action;
             const { 
                 wsStart, 
+                wsStartProfile,
                 wsSendMessage, 
                 onOpen, 
                 onClose, 
@@ -22,9 +23,14 @@ export const wsMiddleware = (wsUrl: string, wsActions: WsActions): Middleware<{}
             } = wsActions;
             const accessToken = getCookie('accessToken');
 
-            if (type ===  wsStart) {
-                socket = payload?.token ? new WebSocket(`${wsUrl}?token=${payload.token}`) : new WebSocket(`${wsUrl}/all`)
+            if (type === wsStart) {
+                socket = new WebSocket(`${wsUrl}/all`)
             }
+
+            if (type === wsStartProfile) {
+                socket = new WebSocket(`${wsUrl}?token=${accessToken}`)
+            }
+
             if(socket) {
                 socket.onopen = event => {
                     dispatch({ type: onOpen, payload: event });
