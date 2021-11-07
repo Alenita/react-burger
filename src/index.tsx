@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 
 import App from './components/app/app';
 import { store } from './services/store';
@@ -11,9 +11,9 @@ import { store } from './services/store';
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <Router basename='react-burger'>
+      <BrowserRouter basename='/react-burger'>
         <App />
-      </Router>
+      </BrowserRouter>
     </Provider>
   </React.StrictMode>,
   document.getElementById('root')
