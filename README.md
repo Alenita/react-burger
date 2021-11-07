@@ -22,13 +22,24 @@ The build is minified and the filenames include the hashes.
 Your app is ready to be deployed!
 
 ## Technologies
+
 React
+
 Redux
+
 Redux-Thunk
+
 Redux Toolkit
+
 React-Router
+
 React-DND
+
 TypeScript
+
 WebSocket
+
 Jest
+
 Cypress
+
