@@ -1,5 +1,5 @@
 # React Burger App
-GitHub Pages: https://yslpn.github.io/react-burger/
+GitHub Pages: https://alenita.github.io/react-burger/
 
 ## Available Scripts
 In the project directory, you can run:
